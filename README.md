@@ -4,9 +4,10 @@ Portfólio pessoal em [Streamlit](https://streamlit.io), multi-página, pensado 
 mostrar ferramentas internas de logística: roteirização, geocoding, checklists
 digitais, automações de e-mail e dashboards operacionais.
 
-> **Todos os dados deste repositório são fictícios.** Os três projetos, o perfil e
-> o CSV de exemplo existem apenas para demonstrar o formato. Não há nome real de
-> empresa, filial, cliente ou qualquer dado pessoal.
+> **Nada de dado sensível aqui.** Os casos em `data/projetos.json` são reais, mas
+> descritos de forma anonimizada: sem nome de empresa, filial, cliente ou
+> fornecedor, sem número operacional bruto e sem dado pessoal. O CSV usado na
+> mini-demo (`data/sla_exemplo.csv`) é inteiramente fictício.
 
 ---
 
