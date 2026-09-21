@@ -1,34 +1,24 @@
-"""Home do portfolio.
-
-Ponto de entrada do app. Rode com:
+"""Ponto de entrada do portfolio.
 
     streamlit run app.py
 
-As demais paginas ficam em `pages/` e o Streamlit as descobre sozinho,
-na ordem do prefixo numerico do nome do arquivo.
+Este arquivo nao desenha nada: ele so registra as paginas e entrega a
+navegacao para o Streamlit. O conteudo de cada pagina fica em `pages/`.
 
-TODO (voce): o conteudo desta pagina vem de `data/perfil.json` (hero, secao
-"o que eu resolvo", links) e `data/projetos.json` (cards de destaque).
-Edite esses arquivos -- nao e preciso mexer aqui.
+POR QUE `st.navigation` E NAO A DESCOBERTA AUTOMATICA DE `pages/`
+No modo automatico, o rotulo de cada pagina no menu vem do nome do arquivo
+-- e a pagina inicial aparecia como "app", porque o arquivo se chama
+app.py (nome exigido pela configuracao do Streamlit Cloud). Com
+`st.navigation`, o rotulo, o icone e a URL de cada pagina sao explicitos.
+
+Para adicionar uma pagina: crie o arquivo em `pages/` e acrescente um
+`st.Page` na lista abaixo, na posicao em que ele deve aparecer no menu.
 """
 
 import streamlit as st
 
-from utils import (
-    ROTAS,
-    aplicar_css,
-    cabecalho_secao,
-    card_projeto,
-    card_solucao,
-    carregar_perfil,
-    faixa_cta,
-    hero,
-    projetos_em_destaque,
-    rodape,
-)
-
 # --------------------------------------------------------------------------- #
-# Configuracao da pagina -- precisa ser o primeiro comando Streamlit do script
+# Configuracao global -- precisa vir antes de qualquer outro comando Streamlit
 # --------------------------------------------------------------------------- #
 st.set_page_config(
     page_title="Icaro Charleaux | Automação e Inovação em Logística",
@@ -40,94 +30,18 @@ st.set_page_config(
     initial_sidebar_state="auto",
 )
 
-aplicar_css()
-
-perfil = carregar_perfil()
-links = perfil.get("links", {})
-destaques = projetos_em_destaque()
-
 # --------------------------------------------------------------------------- #
-# Hero
+# Paginas
+#
+# `url_path` fica explicito para as URLs continuarem as mesmas de antes
+# (/Sobre, /Projetos, /Contato) -- links ja compartilhados seguem valendo.
+# A pagina marcada como `default` responde na raiz e nao aceita url_path.
 # --------------------------------------------------------------------------- #
-acoes_hero = [("Ver projetos", ROTAS["projetos"], "primario")]
+PAGINAS = [
+    st.Page("pages/0_Home.py", title="Home", icon="⚡", default=True),
+    st.Page("pages/1_Sobre.py", title="Sobre", icon="👤", url_path="Sobre"),
+    st.Page("pages/2_Projetos.py", title="Projetos", icon="🛠️", url_path="Projetos"),
+    st.Page("pages/3_Contato.py", title="Contato", icon="✉️", url_path="Contato"),
+]
 
-# O segundo botao leva ao canal mais direto que estiver configurado.
-if links.get("whatsapp"):
-    acoes_hero.append(("Falar no WhatsApp", links["whatsapp"], "secundario"))
-else:
-    acoes_hero.append(("Falar comigo", ROTAS["contato"], "secundario"))
-
-hero(
-    kicker=perfil.get("cargo", ""),
-    titulo=perfil.get("nome", ""),
-    titulo_destaque="Automação que tira a operação do manual",
-    descricao=perfil.get("resumo_curto", ""),
-    localizacao=perfil.get("localizacao", ""),
-    acoes=acoes_hero,
-)
-
-# --------------------------------------------------------------------------- #
-# O que eu resolvo -- traduz competencia tecnica em dor de operacao
-# --------------------------------------------------------------------------- #
-solucoes = perfil.get("solucoes", [])
-
-if solucoes:
-    cabecalho_secao(
-        "O que eu resolvo",
-        "Três gargalos que aparecem em toda operação",
-        "Se algum deles parece a sua rotina, dá para automatizar.",
-    )
-
-    colunas = st.columns(len(solucoes[:3]), gap="medium")
-    for posicao, (coluna, item) in enumerate(zip(colunas, solucoes[:3]), start=1):
-        with coluna:
-            card_solucao(
-                icone=item.get("icone", ""),
-                titulo=item.get("titulo", ""),
-                texto=item.get("texto", ""),
-                atraso=posicao,
-            )
-
-# --------------------------------------------------------------------------- #
-# Projetos em destaque
-# --------------------------------------------------------------------------- #
-cabecalho_secao(
-    "Portfólio",
-    "Projetos em destaque",
-    "Casos anonimizados. Problema, solução e impacto na página Projetos.",
-)
-
-if destaques:
-    # Ate 3 cards por linha.
-    for inicio in range(0, len(destaques), 3):
-        linha = destaques[inicio : inicio + 3]
-        colunas = st.columns(3, gap="medium")
-        for posicao, (coluna, projeto) in enumerate(zip(colunas, linha), start=1):
-            with coluna:
-                card_projeto(projeto, atraso=posicao)
-else:
-    st.info(
-        'Nenhum projeto marcado como destaque. Coloque `"destaque": true` '
-        "em algum item de data/projetos.json."
-    )
-
-st.write("")
-st.page_link("pages/2_Projetos.py", label="Ver todos os projetos", icon="\U0001f4c1")
-
-# --------------------------------------------------------------------------- #
-# Fechamento
-# --------------------------------------------------------------------------- #
-faixa_cta(
-    "Tem um processo travando a sua operação?",
-    "Me conte o gargalo em duas linhas. Se der para automatizar, eu digo como — "
-    "e se não der, digo isso também.",
-    [
-        ("Falar comigo", ROTAS["contato"], "primario"),
-        ("Conhecer minha stack", ROTAS["sobre"], "secundario"),
-    ],
-)
-
-rodape(
-    "Portfólio construído com Streamlit · "
-    "casos descritos de forma anonimizada, sem dado operacional real."
-)
+st.navigation(PAGINAS).run()

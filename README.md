@@ -50,8 +50,9 @@ conta própria, por isso ele não está fixado em `.streamlit/config.toml`.)
 
 ```
 portfolio/
-├── app.py                     # Home: hero + "o que eu resolvo" + destaques + CTA
+├── app.py                     # roteador: registra as páginas em st.navigation
 ├── pages/
+│   ├── 0_Home.py              # hero + "o que eu resolvo" + destaques + CTA
 │   ├── 1_Sobre.py             # bio, diferenciais, skills, stack
 │   ├── 2_Projetos.py          # projetos em expanders + mini-demo de gráfico
 │   └── 3_Contato.py           # canais + formulário que monta um e-mail
@@ -113,6 +114,18 @@ Campos de cada projeto em `projetos.json`:
 
 As chaves que começam com `_` (como `_comentario`) são anotações para você e são
 filtradas antes de chegar na tela.
+
+### Adicionando uma página
+
+A navegação é explícita, montada com `st.navigation` em [`app.py`](app.py) — e não
+pela descoberta automática da pasta `pages/`. É o que permite a página inicial
+aparecer como **Home** no menu, em vez de "app" (nome do arquivo exigido pelo
+Streamlit Cloud).
+
+Para criar uma página nova: escreva o arquivo em `pages/` e acrescente um
+`st.Page` na lista `PAGINAS`, na posição em que ele deve aparecer no menu. O
+`title` vira o rótulo, e o `url_path` fixa o endereço — mantenha-o estável para
+não quebrar links já compartilhados.
 
 > Depois de editar um arquivo de `data/`, use **Clear cache** no menu do canto
 > superior direito do app (ou reinicie), porque a leitura é cacheada.
