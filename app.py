@@ -58,6 +58,7 @@ with coluna_texto:
     links = perfil.get("links", {})
     rotulos = {
         "linkedin": "LinkedIn",
+        "whatsapp": "WhatsApp",
         "github": "GitHub",
         "site": "Site",
     }

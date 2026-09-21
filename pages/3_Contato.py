@@ -45,25 +45,28 @@ st.write("Aberto a conversas sobre automacao, dados e processos de logistica.")
 # --------------------------------------------------------------------------- #
 cabecalho_secao("Onde me encontrar")
 
-colunas = st.columns(3, gap="medium")
+# Ordem dos botoes na tela. Canal com valor vazio em data/perfil.json some
+# sozinho -- e so apagar a URL para tirar do ar, sem mexer no codigo.
+CANAIS = [
+    ("linkedin", "LinkedIn"),
+    ("whatsapp", "WhatsApp"),
+    ("github", "GitHub"),
+    ("site", "Site"),
+]
 
-with colunas[0]:
-    if links.get("linkedin"):
-        st.link_button("LinkedIn", links["linkedin"])
-    else:
-        st.caption("LinkedIn: preencha em data/perfil.json")
+botoes = [(rotulo, links[chave]) for chave, rotulo in CANAIS if links.get(chave)]
 
-with colunas[1]:
-    if links.get("github"):
-        st.link_button("GitHub", links["github"])
-    else:
-        st.caption("GitHub: preencha em data/perfil.json")
+# O e-mail vem por ultimo porque precisa do prefixo mailto:.
+if links.get("email"):
+    botoes.append(("E-mail", f"mailto:{links['email']}"))
 
-with colunas[2]:
-    if links.get("email"):
-        st.link_button("E-mail", f"mailto:{links['email']}")
-    else:
-        st.caption("E-mail: preencha em data/perfil.json")
+if botoes:
+    colunas = st.columns(len(botoes), gap="medium")
+    for coluna, (rotulo, url) in zip(colunas, botoes):
+        with coluna:
+            st.link_button(rotulo, url)
+else:
+    st.caption("Preencha `links` em data/perfil.json para exibir seus canais.")
 
 st.divider()
 
