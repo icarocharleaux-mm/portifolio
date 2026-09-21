@@ -149,4 +149,4 @@ if enviado:
             "quando você mesmo envia pelo seu cliente de e-mail."
         )
 
-rodape()
+rodape(autor=perfil.get("nome", ""))

@@ -139,4 +139,4 @@ faixa_cta(
     ],
 )
 
-rodape()
+rodape(autor=perfil.get("nome", ""))

@@ -26,6 +26,7 @@ from utils import (
     bloco_rotulado,
     cabecalho_secao,
     carregar_csv,
+    carregar_perfil,
     carregar_projetos,
     faixa_cta,
     hero,
@@ -38,6 +39,7 @@ st.set_page_config(
 )
 aplicar_css()
 
+perfil = carregar_perfil()
 projetos = carregar_projetos()
 
 # --------------------------------------------------------------------------- #
@@ -176,4 +178,4 @@ faixa_cta(
     ],
 )
 
-rodape()
+rodape(autor=perfil.get("nome", ""))

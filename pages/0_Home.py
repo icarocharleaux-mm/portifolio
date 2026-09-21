@@ -43,8 +43,10 @@ else:
 
 hero(
     kicker=perfil.get("cargo", ""),
+    # O nome e o <h1> e o destaque absoluto da pagina; a frase de impacto vai
+    # como `subtitulo`, que sai em um <h2> bem menor e mais leve.
     titulo=perfil.get("nome", ""),
-    titulo_destaque="Automação que tira a operação do manual",
+    subtitulo="Automação que tira a operação do manual",
     descricao=perfil.get("resumo_curto", ""),
     localizacao=perfil.get("localizacao", ""),
     acoes=acoes_hero,
@@ -111,6 +113,6 @@ faixa_cta(
 )
 
 rodape(
-    "Portfólio construído com Streamlit · "
-    "casos descritos de forma anonimizada, sem dado operacional real."
+    autor=perfil.get("nome", ""),
+    nota="Casos descritos de forma anonimizada, sem dado operacional real.",
 )

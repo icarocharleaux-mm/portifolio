@@ -103,15 +103,27 @@ def hero(
     kicker: str,
     titulo: str,
     titulo_destaque: str = "",
+    subtitulo: str = "",
     descricao: str = "",
     localizacao: str = "",
     acoes: Sequence[tuple[str, str, str]] = (),
 ) -> None:
-    """Bloco de abertura da pagina.
+    """Bloco de abertura da pagina, em dois formatos.
 
-    `titulo_destaque` sai com o preenchimento em gradiente, logo apos `titulo`.
+    `titulo_destaque` continua a frase DENTRO do <h1>, no mesmo tamanho, so
+    trocando a cor pelo gradiente. Serve para uma frase unica quebrada em
+    duas linhas -- e o que as paginas internas usam.
+
+    `subtitulo` sai em um <h2> proprio, bem menor e mais leve que o <h1>.
+    Serve quando o titulo e o nome e a frase e um complemento -- e o que a
+    Home usa, para o nome ser o destaque absoluto.
+
+    Os dois podem coexistir, mas em geral so um deles e preenchido.
     """
-    partes = ['<div class="pf-hero pf-anima">']
+    # Com subtitulo, o <h1> e um nome proprio e recebe a escala de marca.
+    # Sem ele, o <h1> carrega uma frase e fica na escala de leitura.
+    classes = "pf-hero pf-anima" + (" pf-hero-nome" if subtitulo else "")
+    partes = [f'<div class="{classes}">']
 
     if kicker:
         partes.append(f'<span class="pf-eyebrow">{escape(kicker)}</span>')
@@ -123,6 +135,9 @@ def hero(
         separador = "<br>" if titulo else ""
         partes.append(f'{separador}<span class="pf-grad">{escape(titulo_destaque)}</span>')
     partes.append("</h1>")
+
+    if subtitulo:
+        partes.append(f'<h2 class="pf-hero-sub pf-grad">{escape(subtitulo)}</h2>')
 
     if descricao:
         partes.append(f'<p class="pf-lead">{escape(descricao)}</p>')
@@ -284,6 +299,23 @@ def avatar(caminho_relativo: str, largura: int = 190) -> None:
         st.image(str(caminho), width=largura)
 
 
-def rodape(texto: str = "Portfólio pessoal construído com Streamlit.") -> None:
-    """Rodape padrao das paginas."""
-    _render(f'<div class="pf-rodape">{escape(texto)}</div>')
+def rodape(autor: str = "", nota: str = "") -> None:
+    """Rodape padrao das paginas.
+
+    `autor` sai como credito de autoria do portfolio; `nota` e uma linha
+    menor abaixo, para avisos (anonimizacao dos dados, por exemplo).
+    """
+    creditos = "Desenvolvido e construído com Python + Streamlit"
+    if autor:
+        creditos = (
+            f"Portfólio desenvolvido e construído por <strong>{escape(autor)}</strong>"
+            " · Python + Streamlit"
+        )
+
+    partes = [f'<div class="pf-rodape">{creditos}']
+
+    if nota:
+        partes.append(f'<div class="pf-rodape-nota">{escape(nota)}</div>')
+
+    partes.append("</div>")
+    _render("".join(partes))
