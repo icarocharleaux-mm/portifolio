@@ -5,6 +5,23 @@
   "localizacao": "Brasil",
   "avatar": "assets/avatar_placeholder.svg",
 
+  "_comentario_bio": "Texto aprovado em 21/09/2026. Cada parágrafo é independente: apague, reordene ou reescreva sem quebrar nada. Não inclua aqui nome de empresa, cliente ou pessoa — este conteúdo é público.",
+  "bio": [
+    "Minha formação começou na Química, e o laboratório deixou um hábito que eu carrego até hoje: processo que não é medido é palpite. A especialização em Engenharia de Produção e o MBA em Gestão da Qualidade e Logística vieram depois para dar método ao que eu já fazia na prática — olhar um fluxo e enxergar onde ele perde tempo.",
+    "Hoje trabalho com automação e inovação dentro da operação logística. Na prática, isso é transformar rotina manual em processo automatizado, confiável e auditável: um pipeline que puxa dado de sistema sozinho, um painel que a diretoria abre no navegador, um sistema interno que aposenta a planilha compartilhada, uma ferramenta que roda no celular de quem está no armazém.",
+    "O que eu aprendi é que o gargalo quase nunca está onde o organograma diz. Por isso começo conversando com quem opera, não só com quem gerencia, e prototipo rápido para colocar na mão da pessoa antes de investir no resto. Automação em que a operação não confia é automação que ninguém usa.",
+    "Trato segurança como parte da entrega, não como etapa final: credencial cifrada, dado sensível descartado já na entrada, escopo de acesso tratado como fronteira e não como configuração. Quando uma empresa me dá acesso ao sistema dela, isso é confiança — e confiança se devolve em cuidado técnico.",
+    "Meu critério de sucesso é o processo continuar de pé quando eu não estiver por perto. Por isso documento, treino quem vai usar e entrego rodando."
+  ],
+
+  "_comentario_diferenciais": "Aparecem como lista na seção 'Como eu trabalho', na página Sobre.",
+  "diferenciais": [
+    "Converso com quem opera antes de escrever a primeira linha de código",
+    "Entrego ferramenta que funciona na mão de quem não é técnico",
+    "Documento e treino, para o processo não depender de mim",
+    "Segurança e LGPD entram no desenho, não numa revisão no fim"
+  ],
+
   "_comentario_solucoes": "Esta seção traduz suas competências em dor de cliente. Foi escrita a partir dos projetos em projetos.json, sem inventar número de impacto. Ajuste o texto para soar como você fala.",
   "solucoes": [
     {
