@@ -33,14 +33,21 @@ st.set_page_config(
 # --------------------------------------------------------------------------- #
 # Paginas
 #
+# A ORDEM DA LISTA e a ordem do menu, independente do nome do arquivo --
+# por isso Servicos (arquivo 4_) aparece em segundo: quem chega para
+# contratar ve a oferta antes do curriculo.
+#
 # `url_path` fica explicito para as URLs continuarem as mesmas de antes
 # (/Sobre, /Projetos, /Contato) -- links ja compartilhados seguem valendo.
+# "Servicos" vai sem cedilha de proposito: acento em URL vira escape feio
+# quando alguem cola o link em uma mensagem.
 # A pagina marcada como `default` responde na raiz e nao aceita url_path.
 # --------------------------------------------------------------------------- #
 PAGINAS = [
     st.Page("pages/0_Home.py", title="Home", icon="⚡", default=True),
-    st.Page("pages/1_Sobre.py", title="Sobre", icon="👤", url_path="Sobre"),
+    st.Page("pages/4_Servicos.py", title="Serviços", icon="⚙️", url_path="Servicos"),
     st.Page("pages/2_Projetos.py", title="Projetos", icon="🛠️", url_path="Projetos"),
+    st.Page("pages/1_Sobre.py", title="Sobre", icon="👤", url_path="Sobre"),
     st.Page("pages/3_Contato.py", title="Contato", icon="✉️", url_path="Contato"),
 ]
 

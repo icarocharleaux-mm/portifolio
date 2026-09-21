@@ -67,7 +67,13 @@ def aplicar_css() -> None:
 # Destinos internos. As paginas do Streamlit ficam em /<Nome>, sem o prefixo
 # numerico do arquivo. Sao links relativos para funcionar tanto local quanto
 # no Streamlit Cloud.
-ROTAS = {"home": ".", "sobre": "Sobre", "projetos": "Projetos", "contato": "Contato"}
+ROTAS = {
+    "home": ".",
+    "servicos": "Servicos",
+    "projetos": "Projetos",
+    "sobre": "Sobre",
+    "contato": "Contato",
+}
 
 
 def _html_botoes(botoes: Sequence[tuple[str, str, str]]) -> str:
@@ -204,6 +210,60 @@ def _card(icone: str, titulo: str, texto: str, rodape_: str, atraso: int) -> Non
 
     partes.append("</div>")
     _render("".join(partes))
+
+
+def card_servico(
+    icone: str,
+    titulo: str,
+    texto: str,
+    entregaveis: Sequence[str] = (),
+    prova: str = "",
+    atraso: int = 0,
+) -> None:
+    """Card de pacote de servico: descricao, entregaveis e o caso que comprova."""
+    classes = "pf-card pf-anima" + (f" pf-d{atraso}" if 1 <= atraso <= 4 else "")
+    partes = [f'<div class="{classes}">']
+
+    if icone:
+        partes.append(f'<span class="pf-icone">{escape(icone)}</span>')
+
+    partes.append(f"<h4>{escape(titulo)}</h4>")
+    partes.append(f"<p>{escape(texto)}</p>")
+
+    if entregaveis:
+        itens = "".join(f"<li>{escape(str(i))}</li>" for i in entregaveis)
+        partes.append(f'<ul class="pf-entregaveis">{itens}</ul>')
+
+    if prova:
+        partes.append(f'<span class="pf-prova"><b>Comprovado em</b>{escape(prova)}</span>')
+
+    partes.append("</div>")
+    _render("".join(partes))
+
+
+def passo(numero: str, titulo: str, texto: str) -> None:
+    """Etapa numerada do processo de trabalho."""
+    _render(
+        '<div class="pf-passo pf-anima">'
+        f'<span class="pf-passo-num">{escape(numero)}</span>'
+        f"<h4>{escape(titulo)}</h4>"
+        f"<p>{escape(texto)}</p>"
+        "</div>"
+    )
+
+
+def estimativa(texto: str) -> None:
+    """Ganho projetado.
+
+    Sai com rotulo e borda tracejada de proposito: numero estimado nao pode
+    ser lido como numero medido. O que foi verificado vai em `resultado`.
+    """
+    _render(
+        '<div class="pf-estimativa">'
+        "<b>Ganho estimado</b>"
+        f"{escape(texto)}"
+        "</div>"
+    )
 
 
 def faixa_cta(titulo: str, texto: str, acoes: Sequence[tuple[str, str, str]]) -> None:

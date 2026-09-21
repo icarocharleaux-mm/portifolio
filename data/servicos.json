@@ -1,0 +1,101 @@
+{
+  "_comentario": "Conteudo da pagina Servicos. Cada pacote precisa apontar para um projeto real que o comprove -- 'prova' e o texto que aparece como evidencia no card. Nao escreva pacote que voce nao consiga sustentar com um caso.",
+
+  "chamada": "Processo que consome gente todo dia é processo que dá para automatizar",
+  "subchamada": "Levo a operação logística do manual para o automatizado — com a camada de segurança que dado operacional exige.",
+
+  "pacotes": [
+    {
+      "icone": "⚙️",
+      "titulo": "Automação de processo operacional",
+      "texto": "Rotina repetitiva com regra clara vira processo automatizado: coleta de relatório em sistema, cruzamento de base, triagem de e-mail, geração de documento. Com tratamento de erro, agendamento e plano de volume definido antes de virar gargalo.",
+      "entregaveis": [
+        "Automação rodando em produção, agendada",
+        "Documentação de operação e de falha",
+        "Plano de escala com limites conhecidos"
+      ],
+      "prova": "Pipeline de apuração de avarias · Triagem de e-mails com resposta em rascunho"
+    },
+    {
+      "icone": "📊",
+      "titulo": "Painel e análise de dados operacionais",
+      "texto": "Dado espalhado em planilha vira painel online que a gestão abre no navegador. Cruzamento entre bases de sistemas diferentes, indicadores de SLA, curva ABC, recorrência por filial e evolução no tempo.",
+      "entregaveis": [
+        "Painel publicado, com atualização automática",
+        "Pipeline de carga e limpeza dos dados",
+        "Exportação em Excel e PDF para reunião"
+      ],
+      "prova": "Painel de avarias e faltas com cruzamento de duas bases por chave única"
+    },
+    {
+      "icone": "🧩",
+      "titulo": "Sistema interno sob medida",
+      "texto": "Quando planilha compartilhada não dá mais conta: sistema multiusuário com login, perfil de acesso, fluxo de trabalho em quadro e trilha de auditoria. Feito para o processo que existe, não para o processo que o software genérico presume.",
+      "entregaveis": [
+        "Sistema com controle de acesso por papel",
+        "Auditoria de cada movimentação",
+        "Painel gerencial alimentado pelo próprio fluxo"
+      ],
+      "prova": "Central de demandas · Plataforma de triagem de candidatos"
+    },
+    {
+      "icone": "🔌",
+      "titulo": "Integração com sistema legado",
+      "texto": "Sistema de transporte sem API, relatório que só sai em tela, planilha que alguém exporta toda manhã. Faço a ponte entre o que existe e o que você precisa, isolando a fonte atrás de um adaptador — para trocar a origem depois sem refazer o resto.",
+      "entregaveis": [
+        "Extração automatizada da fonte atual",
+        "Camada de adaptação trocável",
+        "Credenciais cifradas, nunca em texto no código"
+      ],
+      "prova": "Coleta automatizada de relatórios de TMS · Leitor de volumes com fonte trocável"
+    },
+    {
+      "icone": "📱",
+      "titulo": "Ferramenta para operação de campo",
+      "texto": "Conferência, checklist e inspeção saem do papel e vão para o celular de quem está no armazém — rodando no navegador, sem instalar aplicativo, em iPhone ou Android. Leitura de código de barras, foto como evidência e registro consultável.",
+      "entregaveis": [
+        "Aplicativo web que roda em qualquer celular",
+        "Registro consultável de cada leitura",
+        "Funciona com a infraestrutura que a filial já tem"
+      ],
+      "prova": "Conferência de volumes por código de barras · Checklist digital com evidência fotográfica"
+    },
+    {
+      "icone": "🔐",
+      "titulo": "Adequação e segurança de dado operacional",
+      "texto": "Não é um pacote separado: é a camada que vai junto em tudo acima. Minimização do dado na origem, cifragem em repouso, mascaramento de pessoa física, escopo de acesso tratado como fronteira e não como configuração.",
+      "entregaveis": [
+        "Dado sensível descartado já na ingestão",
+        "Base cifrada em repouso",
+        "Acesso auditável, escopo restrito ao combinado"
+      ],
+      "prova": "Ingestão que descarta PII e cifra em AES-256 · Credenciais protegidas por DPAPI"
+    }
+  ],
+
+  "processo": [
+    {
+      "numero": "01",
+      "titulo": "Diagnóstico",
+      "texto": "Converso com quem opera, não só com quem gerencia. Mapeio o processo como ele é de verdade e meço onde o tempo vai embora."
+    },
+    {
+      "numero": "02",
+      "titulo": "Protótipo",
+      "texto": "Construo a menor versão que já resolve e coloco na mão de quem vai usar. Se não sobreviver ao uso real, mudo antes de investir no resto."
+    },
+    {
+      "numero": "03",
+      "titulo": "Validação na operação",
+      "texto": "Rodo em paralelo ao processo atual até bater. Automação que a operação não confia é automação que ninguém usa."
+    },
+    {
+      "numero": "04",
+      "titulo": "Entrega e independência",
+      "texto": "Documento, treino e deixo rodando sem depender de mim. O critério de sucesso é o processo continuar de pé quando eu não estiver por perto."
+    }
+  ],
+
+  "cta_titulo": "Qual processo está consumindo gente na sua operação?",
+  "cta_texto": "Me descreva o gargalo em duas linhas. Eu digo se dá para automatizar, o que seria preciso e quanto tempo leva — e se não valer a pena, digo isso também."
+}

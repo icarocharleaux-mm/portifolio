@@ -135,7 +135,7 @@ faixa_cta(
     "e o que mudou na operação depois.",
     [
         ("Ver projetos", ROTAS["projetos"], "primario"),
-        ("Falar comigo", ROTAS["contato"], "secundario"),
+        ("O que eu entrego", ROTAS["servicos"], "secundario"),
     ],
 )
 

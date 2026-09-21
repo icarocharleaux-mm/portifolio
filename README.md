@@ -53,12 +53,14 @@ portfolio/
 ├── app.py                     # roteador: registra as páginas em st.navigation
 ├── pages/
 │   ├── 0_Home.py              # hero + "o que eu resolvo" + destaques + CTA
-│   ├── 1_Sobre.py             # bio, diferenciais, skills, stack
+│   ├── 4_Servicos.py          # pacotes de serviço + processo de trabalho
 │   ├── 2_Projetos.py          # projetos em expanders + mini-demo de gráfico
+│   ├── 1_Sobre.py             # bio, diferenciais, skills, stack
 │   └── 3_Contato.py           # canais + formulário que monta um e-mail
 ├── data/                      # TODO o conteúdo editável
 │   ├── perfil.json            # nome, cargo, bio, "o que eu resolvo", links
 │   ├── projetos.json          # lista de projetos
+│   ├── servicos.json          # pacotes, entregáveis e etapas do processo
 │   ├── skills.json            # skills por categoria, ferramentas, idiomas
 │   └── sla_exemplo.csv        # dados fictícios usados na mini-demo
 ├── assets/
@@ -85,6 +87,7 @@ O código não precisa ser tocado — **tudo vive em `data/`**:
 |---|---|
 | Nome, cargo, resumo, bio, links | `data/perfil.json` |
 | Blocos de "o que eu resolvo" | `data/perfil.json` → chave `solucoes` |
+| Pacotes de serviço e processo de trabalho | `data/servicos.json` |
 | Projetos (problema → solução → tecnologias → resultado) | `data/projetos.json` |
 | Skills, ferramentas, idiomas | `data/skills.json` |
 | Dados da mini-demo | `data/sla_exemplo.csv` |
@@ -114,6 +117,19 @@ Campos de cada projeto em `projetos.json`:
 
 As chaves que começam com `_` (como `_comentario`) são anotações para você e são
 filtradas antes de chegar na tela.
+
+### `resultado` × `estimativa` — não misture
+
+Cada projeto tem dois campos de impacto, e a distinção é deliberada:
+
+- **`resultado`** — fato verificável, que está no código, no teste ou no documento
+  do projeto. Ex.: "89 testes unitários", "cruzamento com 100% de correspondência".
+- **`estimativa`** — ganho **projetado**, não medido. Aparece na tela dentro de um
+  bloco tracejado com o rótulo "Ganho estimado", separado do resultado.
+
+Se um dia você medir de verdade, mova o número para `resultado` e reescreva a
+estimativa. Nunca promova uma estimativa a resultado sem ter a medição — numa
+conversa comercial, número inflado cobra caro.
 
 ### Adicionando uma página
 

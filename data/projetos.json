@@ -1,78 +1,227 @@
 [
   {
-    "titulo": "Otimização de Geocoding para Roteirização de Entregas",
+    "_comentario": "ANONIMIZACAO: nenhum projeto cita nome de empresa, cliente, filial ou sistema interno. 'resultado' = fato verificavel (esta no codigo/doc). 'estimativa' = ganho projetado, exibido na tela com rotulo proprio para nao se confundir com medicao.",
+
+    "titulo": "Pipeline de apuração de avarias e faltas, do sistema ao painel",
+    "resumo": "Robô baixa os relatórios do sistema de transporte, cruza duas bases por chave única e publica um painel online — sem ninguém abrir planilha.",
+    "categoria": "Dados & Dashboards",
+    "periodo": "2025—2026",
+    "icone": "📉",
+    "destaque": true,
+    "problema": "A apuração de avarias e faltas de mercadoria dependia de baixar relatórios do sistema de transporte na mão, abrir os arquivos do cliente em Excel e cruzar tudo em planilha. Cada rodada consumia horas, o critério variava conforme quem fazia, e a diretoria só via o resultado dias depois.",
+    "solucao": "Pipeline completo em seis etapas: converte os arquivos recebidos do cliente, autentica e baixa os relatórios do sistema de transporte por automação de navegador, cruza as duas bases pela chave de pedido, normaliza grafias divergentes entre as fontes e publica um painel online com curva ABC, mapa de calor de recorrência, mapa de rotas e evolução temporal. Roda por linha de comando ou por uma interface gráfica, para quem não usa terminal.",
+    "tecnologias": ["Python", "pandas", "Playwright", "Streamlit", "Plotly", "Windows DPAPI"],
+    "resultado": [
+      "Cruzamento por chave de pedido com 100% de correspondência, após descartar a rota como chave (codificação divergente entre as fontes)",
+      "Roda em três máquinas diferentes, com resolução automática de conflito na publicação dos dados",
+      "Credenciais do sistema de transporte cifradas por DPAPI, decifráveis só no mesmo usuário e máquina"
+    ],
+    "estimativa": "Cerca de 1h30 de consolidação manual eliminada a cada rodada de apuração, e o resultado passa a estar disponível no mesmo dia em vez de dias depois.",
+    "aprendizado": "A parte difícil não foi o cruzamento, foi descobrir qual campo servia de chave. A rota parecia o caminho óbvio e levava a menos de 1% de correspondência.",
+    "repositorio": "",
+    "demo": ""
+  },
+
+  {
+    "_comentario": "PROJETO 2",
+
+    "titulo": "Plataforma de triagem de candidatos com atendimento por mensagem",
+    "resumo": "Substituição de uma solução terceirizada de triagem por plataforma própria, com funil, painel multiusuário e trilha de auditoria.",
+    "categoria": "Sistemas Internos",
+    "periodo": "2026",
+    "icone": "🧩",
+    "destaque": true,
+    "problema": "A triagem de candidatos a motorista agregado rodava em uma ferramenta terceirizada: mensalidade recorrente, nenhum controle sobre o fluxo e os dados do processo fora de casa.",
+    "solucao": "Plataforma própria, com backend em NestJS, banco PostgreSQL, fila em Redis para agrupar mensagens e painel em Next.js. Autenticação por token com papéis de acesso, deduplicação de candidato, transições de funil controladas e registro de auditoria em cada movimentação. Toda a stack sobe com um comando.",
+    "tecnologias": ["NestJS", "TypeScript", "PostgreSQL", "Prisma", "Redis", "Next.js", "Docker"],
+    "resultado": [
+      "89 testes unitários e 23 verificações ponta a ponta contra a stack em execução",
+      "Quatro serviços orquestrados em contêiner, com migrações aplicadas automaticamente na subida",
+      "Controle de acesso por papel e auditoria de cada transição do funil"
+    ],
+    "estimativa": "Elimina a mensalidade da ferramenta terceirizada e traz os dados do processo seletivo para dentro de casa, sob a política de retenção da própria empresa.",
+    "aprendizado": "Separar o gateway de mensagem atrás de um webhook fez o formato do canal virar detalhe de configuração: trocar de provedor não exige tocar no backend.",
+    "repositorio": "",
+    "demo": ""
+  },
+
+  {
+    "_comentario": "PROJETO 3",
+
+    "titulo": "Conferência de volumes por código de barras, no navegador do celular",
+    "resumo": "Aplicativo web que bipa a caixa pelo celular do conferente e responde na hora se o volume está no lote esperado.",
+    "categoria": "Operação de Campo",
+    "periodo": "2026",
+    "icone": "📦",
+    "destaque": true,
+    "problema": "A conferência de volumes em pré-devolução era feita consultando o sistema caixa por caixa. Lento, sujeito a erro de digitação e impossível de fazer em paralelo por várias pessoas.",
+    "solucao": "Aplicativo web que roda no navegador do próprio celular do conferente — sem instalar nada, iPhone ou Android. Lê o código de barras pela câmera e devolve o estado do volume em cores: no lote, status divergente ou não encontrado. Como a etiqueta real não traz a nota fiscal, o casamento tenta chave, nota, pedido e remessa em ordem, e avisa quando um pedido tem várias notas.",
+    "tecnologias": ["Node.js", "JavaScript", "PWA", "BarcodeDetector", "ZXing", "AES-256"],
+    "resultado": [
+      "Funciona em iPhone e Android com o mesmo código: usa o leitor nativo do navegador e cai para uma biblioteca embarcada onde ele não existe",
+      "A base fica cifrada em repouso: a ingestão descarta telefone, endereço e documento, mascara o destinatário e só então grava",
+      "A origem dos dados fica atrás de um adaptador — trocar a planilha por uma API do sistema não muda o aplicativo"
+    ],
+    "estimativa": "A conferência deixa de exigir consulta ao sistema volume a volume; a leitura responde em segundos e várias pessoas conferem ao mesmo tempo, cada uma no próprio celular.",
+    "aprendizado": "A regra de casamento desenhada no papel não sobreviveu à etiqueta real. Só olhando o que de fato vinha impresso foi possível acertar a ordem de tentativa.",
+    "repositorio": "",
+    "demo": ""
+  },
+
+  {
+    "_comentario": "PROJETO 4",
+
+    "titulo": "Central de demandas: do pedido ao fechamento, rastreável",
+    "resumo": "Sistema multiusuário que recebe a demanda, joga num quadro por setor e entrega o indicador pronto para a gestão.",
+    "categoria": "Sistemas Internos",
+    "periodo": "2026",
+    "icone": "🎫",
+    "destaque": false,
+    "problema": "Pedidos da operação chegavam por e-mail e mensagem, sem registro comum. Ninguém sabia quantas demandas estavam abertas, com quem, nem há quanto tempo — e o que não era cobrado simplesmente parava.",
+    "solucao": "Sistema em três telas: abertura de ticket, quadro kanban por setor e painel gerencial. Login com senha cifrada, política de senha forte, troca obrigatória no primeiro acesso e bloqueio temporário após tentativas seguidas. Cada movimentação fica registrada, e o responsável é notificado por e-mail.",
+    "tecnologias": ["Python", "Streamlit", "SQLAlchemy", "SQLite", "bcrypt", "SMTP"],
+    "resultado": [
+      "Toda demanda passa a ter registro, responsável e histórico de movimentação",
+      "Bloqueio após cinco tentativas de login e troca de senha obrigatória no primeiro acesso",
+      "Painel gerencial alimentado pelo próprio fluxo, sem planilha paralela"
+    ],
+    "estimativa": "A fila deixa de viver em caixas de e-mail individuais: a gestão passa a enxergar volume aberto, tempo de resposta e gargalo por setor sem pedir status a ninguém.",
+    "aprendizado": "O quadro só foi adotado porque abrir um ticket ficou mais rápido que mandar a mensagem que as pessoas mandavam antes.",
+    "repositorio": "",
+    "demo": ""
+  },
+
+  {
+    "_comentario": "PROJETO 5",
+
+    "titulo": "Triagem de e-mails operacionais com resposta pronta, não enviada",
+    "resumo": "Automação que lê apenas as pastas combinadas, identifica o pedido, resolve no sistema e deixa a resposta em rascunho.",
+    "categoria": "Automação de Processos",
+    "periodo": "2026",
+    "icone": "📨",
+    "destaque": false,
+    "problema": "Um fluxo de acareação chegava por e-mail em volume diário. Cada caso exigia identificar o tipo de pedido, consultar o sistema de transporte e redigir a resposta — trabalho repetitivo, com regra clara e alto custo de atenção.",
+    "solucao": "Automação que lê exclusivamente as pastas combinadas da caixa, classifica em qual dos tipos de pedido o e-mail se encaixa, busca a informação no sistema de transporte e monta a resposta. A mensagem fica pronta como rascunho: quem decide enviar é a pessoa, sempre.",
+    "tecnologias": ["Python", "API de e-mail corporativo", "Automação de TMS"],
+    "resultado": [
+      "A automação nunca envia: a última palavra continua sendo de quem responde",
+      "Escopo de leitura restrito às pastas acordadas, tratado como fronteira de privacidade e não como detalhe de configuração",
+      "Todo acesso auditável no log da plataforma de e-mail corporativo"
+    ],
+    "estimativa": "Um caso que consumia cerca de 10 minutos entre consulta e redação passa a exigir cerca de 1 minuto de conferência do rascunho.",
+    "aprendizado": "Quando a credencial alcança mais do que deveria, quem define o limite é o código. Escrever isso como regra explícita mudou o desenho da automação.",
+    "repositorio": "",
+    "demo": ""
+  },
+
+  {
+    "_comentario": "PROJETO 6",
+
+    "titulo": "Gerador de documentação de processos a partir de planilha",
+    "resumo": "A área preenche uma planilha e recebe o documento de mapeamento pronto: texto, diagrama e PDF de conferência.",
+    "categoria": "Gestão de Processos",
+    "periodo": "2026",
+    "icone": "🗂️",
+    "destaque": false,
+    "problema": "Mapear um processo significava desenhar o fluxograma à mão em um editor, escrever o documento em paralelo e manter os dois sincronizados. Na prática, desenho e texto divergiam na primeira alteração.",
+    "solucao": "Ferramenta que lê uma planilha modelo e gera o documento inteiro: calcula sozinha a posição de cada caixa e decisão, desenha o diagrama com os retornos controlados, produz a árvore em texto a partir da mesma fonte e roda uma checagem de qualidade — decisão sem pergunta, ação sem responsável, espera sem prazo. Duplo clique em um atalho e o material sai pronto.",
+    "tecnologias": ["Python", "openpyxl", "python-docx", "Graphviz"],
+    "resultado": [
+      "Diagrama e texto saem da mesma fonte, então não há como divergirem",
+      "Checagem automática aponta lacunas antes do documento ir para revisão",
+      "Quem mapeia não precisa saber desenhar fluxograma nem abrir a ferramenta de diagramação"
+    ],
+    "estimativa": "Um mapeamento que tomava meio período entre desenho e redação passa a sair em cerca de 15 minutos de preenchimento de planilha.",
+    "aprendizado": "Tirar o desenho das mãos de quem mapeia foi o que destravou a adoção: a barreira nunca foi entender o processo, era montar o diagrama.",
+    "repositorio": "",
+    "demo": ""
+  },
+
+  {
+    "_comentario": "PROJETO 7 — projeto anterior, mantido",
+
+    "titulo": "Otimização de geocoding para roteirização de entregas",
     "resumo": "Eliminação de gargalo de cota de API que travava o cálculo de rotas em dias de alto volume.",
     "categoria": "Automação de Processos",
     "periodo": "2026",
     "icone": "🗺️",
-    "destaque": true,
+    "destaque": false,
     "problema": "Um script de automação responsável por calcular rotas de entrega para uma rede com dezenas de unidades regionais esbarrava recorrentemente em limites de cota da API de geocodificação gratuita, travando o processamento em dias de alto volume.",
     "solucao": "Migração para uma chave de API de geocoding paga (billing-based), com CEP como camada de fallback e checagem de plausibilidade para reduzir chamadas desnecessárias e validar resultados inconsistentes.",
-    "aprendizado": "Cota gratuita é ótima para prototipar, mas processos operacionais críticos precisam de um plano de escala definido desde o início.",
     "tecnologias": ["Google Apps Script", "Google Cloud Geocoding API", "JavaScript"],
     "resultado": [
       "Eliminação do gargalo de cota que travava o processamento",
       "Processo de roteirização escalável para o volume diário de toda a rede"
     ],
+    "estimativa": "O processamento deixa de parar em dia de pico, que é justamente quando a roteirização mais importa.",
+    "aprendizado": "Cota gratuita é ótima para prototipar, mas processos operacionais críticos precisam de um plano de escala definido desde o início.",
     "repositorio": "",
-    "demo": "",
-    "_comentario": "Ajuste 'periodo' para o mês/ano real do projeto."
+    "demo": ""
   },
+
   {
-    "titulo": "Automação de Checklist Digital com Evidências Fotográficas",
+    "_comentario": "PROJETO 8 — projeto anterior, mantido",
+
+    "titulo": "Checklist digital com evidência fotográfica",
     "resumo": "Persistência confiável de fotos de auditoria em app low-code, contornando limitação do tipo de dado nativo.",
     "categoria": "Low-code / Power Platform",
     "periodo": "2026",
     "icone": "📋",
-    "destaque": true,
+    "destaque": false,
     "problema": "Um aplicativo interno de auditoria precisava anexar fotos como evidência em cada item de checklist, mas as abordagens nativas de anexo não eram compatíveis com o tipo de dado retornado pelo componente de câmera.",
-    "solucao": "Arquitetura via Biblioteca de Documentos + fluxo de automação: a mídia capturada no app é salva em uma biblioteca do SharePoint e o link público é gravado na linha correspondente da lista de respostas.",
-    "aprendizado": "Quando a abordagem 'óbvia' de uma plataforma low-code não funciona, vale procurar um caminho indireto (arquivo + link) antes de forçar a solução nativa.",
+    "solucao": "Arquitetura via biblioteca de documentos mais fluxo de automação: a mídia capturada no app é salva em uma biblioteca e o link é gravado na linha correspondente da lista de respostas.",
     "tecnologias": ["Power Apps", "Power Automate", "SharePoint"],
     "resultado": [
       "Persistência confiável de evidências fotográficas em processos de auditoria",
       "Solução sem dependência de tipos de coluna incompatíveis com o fluxo de captura"
     ],
+    "estimativa": "A evidência deixa de depender de alguém lembrar de anexar depois: ela entra no mesmo gesto da conferência.",
+    "aprendizado": "Quando a abordagem óbvia de uma plataforma low-code não funciona, vale procurar um caminho indireto antes de forçar a solução nativa.",
     "repositorio": "",
-    "demo": "",
-    "_comentario": "Ajuste 'periodo' para o mês/ano real do projeto."
+    "demo": ""
   },
+
   {
-    "titulo": "Modelo Padronizado de Intake e Priorização para Projetos de Automação",
-    "resumo": "Framework de captação e priorização de demandas por ROI para uma área de automação recém-criada.",
+    "_comentario": "PROJETO 9 — projeto anterior, mantido",
+
+    "titulo": "Modelo de intake e priorização por ROI",
+    "resumo": "Framework de captação e priorização de demandas para uma área de automação recém-criada.",
     "categoria": "Gestão de Processos",
     "periodo": "2026",
-    "icone": "📊",
-    "destaque": true,
-    "problema": "Uma área de Automação e Inovação recém-criada não tinha processo formal para captar, avaliar e priorizar demandas — cada solicitação chegava de forma ad-hoc, sem critério objetivo de ROI.",
-    "solucao": "Desenho e apresentação executiva de um modelo de intake estruturado em 4 blocos (identificação, dor operacional/ROI, fluxo do processo e evidência em vídeo), com framework de priorização por ROI.",
-    "aprendizado": "Automação de processo também é produto: precisa de proposta de valor clara e apresentação para ganhar adoção, não só código.",
+    "icone": "🎯",
+    "destaque": false,
+    "problema": "Uma área de automação e inovação recém-criada não tinha processo formal para captar, avaliar e priorizar demandas — cada solicitação chegava de forma ad-hoc, sem critério objetivo de retorno.",
+    "solucao": "Desenho e apresentação executiva de um modelo de intake estruturado em quatro blocos (identificação, dor operacional e retorno, fluxo do processo e evidência em vídeo), com framework de priorização por impacto e esforço.",
     "tecnologias": ["Microsoft Forms", "Power Automate", "Apresentação executiva"],
     "resultado": [
       "Processo replicável de triagem de demandas",
       "Critério objetivo de priorização por impacto e esforço, substituindo ordem de chegada"
     ],
+    "estimativa": "A fila deixa de ser resolvida por quem grita mais alto e passa a ser resolvida por onde o retorno é maior.",
+    "aprendizado": "Automação de processo também é produto: precisa de proposta de valor clara e apresentação para ganhar adoção, não só código.",
     "repositorio": "",
-    "demo": "",
-    "_comentario": "Ajuste 'periodo' para o mês/ano real do projeto."
+    "demo": ""
   },
+
   {
-    "titulo": "Reorganização de Caixa de E-mail com Regras Automatizadas",
-    "resumo": "Triagem automática de e-mails operacionais usando o motor nativo de regras do Outlook.",
+    "_comentario": "PROJETO 10 — projeto anterior, mantido",
+
+    "titulo": "Triagem automática de caixa de e-mail por regras",
+    "resumo": "Organização automática de e-mails operacionais usando o motor nativo de regras do cliente de e-mail.",
     "categoria": "Automação de E-mail",
     "periodo": "2026",
     "icone": "📧",
     "destaque": false,
     "problema": "A caixa de entrada recebia grande volume de e-mails operacionais sem organização, exigindo triagem manual diária.",
-    "solucao": "Mapeamento de regras de pasta usando o motor nativo de Regras do Outlook, após identificar que movimentações em lote não eram viáveis via chamadas de API.",
-    "aprendizado": "Nem toda automação precisa de código customizado — às vezes a ferramenta nativa da própria plataforma já resolve com mais estabilidade.",
-    "tecnologias": ["Outlook", "Regras nativas (Rules engine)"],
+    "solucao": "Mapeamento de regras de pasta usando o motor nativo de regras do cliente de e-mail, após identificar que movimentações em lote não eram viáveis via chamadas de API.",
+    "tecnologias": ["Outlook", "Regras nativas"],
     "resultado": [
       "Organização automática de e-mails por regra",
       "Redução da triagem manual diária"
     ],
+    "estimativa": "Nem toda automação precisa de código: esta resolveu em configuração o que um script manteria para sempre sob manutenção.",
+    "aprendizado": "Às vezes a ferramenta nativa da própria plataforma já resolve, com mais estabilidade e sem código para manter.",
     "repositorio": "",
-    "demo": "",
-    "_comentario": "Ajuste 'periodo' para o mês/ano real do projeto."
+    "demo": ""
   }
 ]

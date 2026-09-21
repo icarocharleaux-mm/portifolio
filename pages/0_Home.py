@@ -107,8 +107,8 @@ faixa_cta(
     "Me conte o gargalo em duas linhas. Se der para automatizar, eu digo como — "
     "e se não der, digo isso também.",
     [
-        ("Falar comigo", ROTAS["contato"], "primario"),
-        ("Conhecer minha stack", ROTAS["sobre"], "secundario"),
+        ("Ver o que eu entrego", ROTAS["servicos"], "primario"),
+        ("Falar comigo", ROTAS["contato"], "secundario"),
     ],
 )
 

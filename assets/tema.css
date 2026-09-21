@@ -205,6 +205,87 @@ a { color: var(--acento); }
   font-weight: 700;
 }
 
+/* ---------- Card de servico (card + lista de entregaveis + prova) ---------- */
+
+.pf-card ul.pf-entregaveis {
+  list-style: none;
+  padding: 0;
+  margin: 1rem 0 0;
+}
+.pf-card ul.pf-entregaveis li {
+  position: relative;
+  padding-left: 1.3rem;
+  margin-bottom: 0.4rem;
+  color: var(--suave);
+  font-size: 0.87rem;
+  line-height: 1.5;
+}
+.pf-card ul.pf-entregaveis li::before {
+  content: "→";
+  position: absolute;
+  left: 0;
+  color: var(--acento);
+}
+
+.pf-prova {
+  display: block;
+  margin-top: 1rem;
+  padding-top: 0.8rem;
+  border-top: 1px solid var(--borda);
+  font-size: 0.76rem;
+  color: var(--suave);
+}
+.pf-prova b {
+  color: var(--acento);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.68rem;
+  display: block;
+  margin-bottom: 0.25rem;
+}
+
+/* ---------- Passo numerado (o processo de trabalho) ---------- */
+
+.pf-passo { position: relative; padding-left: 3.4rem; margin-bottom: 1.6rem; }
+.pf-passo .pf-passo-num {
+  position: absolute;
+  left: 0;
+  top: -0.15rem;
+  font-size: 1.55rem;
+  font-weight: 800;
+  line-height: 1;
+  background: linear-gradient(140deg, var(--acento), var(--acento-2));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.pf-passo h4 { margin: 0 0 0.3rem; font-size: 1rem; font-weight: 650; color: var(--texto); }
+.pf-passo p { margin: 0; color: var(--suave); font-size: 0.9rem; line-height: 1.6; }
+
+/* ---------- Estimativa (numero projetado, nao medido) ---------- */
+
+.pf-estimativa {
+  margin-top: 0.9rem;
+  padding: 0.75rem 0.9rem;
+  border-radius: 10px;
+  border: 1px dashed var(--borda);
+  background: rgba(255, 255, 255, 0.02);
+  font-size: 0.87rem;
+  line-height: 1.55;
+  color: var(--suave);
+}
+/* A borda tracejada e o rotulo separam visualmente o projetado do medido. */
+.pf-estimativa b {
+  display: block;
+  color: var(--acento-3);
+  font-size: 0.66rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 0.3rem;
+}
+
 /* ---------- Tags ---------- */
 
 .pf-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0.3rem 0 0.2rem; }

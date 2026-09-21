@@ -28,6 +28,7 @@ from utils import (
     carregar_csv,
     carregar_perfil,
     carregar_projetos,
+    estimativa,
     faixa_cta,
     hero,
     lista_de_tags,
@@ -103,9 +104,13 @@ for indice, projeto in enumerate(visiveis):
                 lista_de_tags(projeto["tecnologias"])
 
             if projeto.get("resultado"):
-                st.markdown("**Resultado / impacto**")
+                st.markdown("**Resultado verificável**")
                 for linha in projeto["resultado"]:
                     st.markdown(f"- {linha}")
+
+            # Sai visualmente separado do bloco acima: projetado nao e medido.
+            if projeto.get("estimativa"):
+                estimativa(projeto["estimativa"])
 
             # Links opcionais: so aparecem se preenchidos no JSON.
             if projeto.get("repositorio"):
@@ -174,7 +179,7 @@ faixa_cta(
     "para automatizar. Me chame que eu avalio.",
     [
         ("Falar comigo", ROTAS["contato"], "primario"),
-        ("Ver minha stack", ROTAS["sobre"], "secundario"),
+        ("O que eu entrego", ROTAS["servicos"], "secundario"),
     ],
 )
 
