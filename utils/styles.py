@@ -238,6 +238,45 @@ def card_servico(
     _render("".join(partes))
 
 
+def coluna_funil(nome: str, descricao: str, fichas: Sequence[dict[str, Any]]) -> None:
+    """Uma coluna do quadro de funil, com as fichas que estao nela.
+
+    Cada ficha e um dict com `codigo` e uma lista `meta` de linhas curtas.
+    Coluna vazia mostra um marcador tracejado em vez de sumir, para o quadro
+    nao mudar de largura quando um candidato e movido.
+    """
+    partes = [
+        '<div class="pf-coluna">',
+        '<div class="pf-coluna-topo">',
+        f'<span class="pf-coluna-nome">{escape(nome)}</span>',
+        f'<span class="pf-coluna-qtd">{len(fichas)}</span>',
+        "</div>",
+        f'<div class="pf-coluna-desc">{escape(descricao)}</div>',
+    ]
+
+    if not fichas:
+        partes.append('<div class="pf-ficha-vazia">vazia</div>')
+
+    for ficha in fichas:
+        partes.append('<div class="pf-ficha">')
+        partes.append(f'<div class="pf-ficha-codigo">{escape(ficha["codigo"])}</div>')
+        for linha in ficha.get("meta", []):
+            partes.append(f'<div class="pf-ficha-meta">{escape(str(linha))}</div>')
+        partes.append("</div>")
+
+    partes.append("</div>")
+    _render("".join(partes))
+
+
+def aviso_demo(texto_html: str) -> None:
+    """Tarja que separa uma demonstracao do sistema real que ela recria.
+
+    Recebe HTML ja montado (para permitir <b>), entao o CHAMADOR e responsavel
+    por nao interpolar conteudo de terceiros aqui.
+    """
+    _render(f'<div class="pf-aviso-demo">{texto_html}</div>')
+
+
 def passo(numero: str, titulo: str, texto: str) -> None:
     """Etapa numerada do processo de trabalho."""
     _render(

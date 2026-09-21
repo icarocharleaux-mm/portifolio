@@ -1,0 +1,92 @@
+{
+  "_comentario": "DADOS 100% FICTICIOS para a demonstracao interativa. Nenhum candidato real, nenhum documento, telefone ou nome de pessoa. Os codigos seguem o padrao mascarado que o sistema real usa em tela.",
+
+  "_comentario_lgpd": "NAO acrescente aqui nome completo, CPF, CNH, telefone, endereco ou placa. A demo existe para mostrar o FLUXO, nao o cadastro. Se precisar de mais candidatos, copie um item e troque o codigo.",
+
+  "etapas": [
+    {
+      "nome": "Recebido",
+      "descricao": "Entrou pelo canal de mensagem e foi deduplicado"
+    },
+    {
+      "nome": "Documentação",
+      "descricao": "Checklist de documentos pendente ou em conferência"
+    },
+    {
+      "nome": "Análise",
+      "descricao": "Validação de perfil, veículo e disponibilidade"
+    },
+    {
+      "nome": "Aprovado",
+      "descricao": "Liberado para contratação"
+    }
+  ],
+
+  "candidatos": [
+    {
+      "codigo": "CAND-0142",
+      "origem": "Mensagem",
+      "veiculo": "Utilitário pequeno",
+      "regiao": "Região A",
+      "dias_no_funil": 2,
+      "etapa": "Recebido",
+      "documentos": 1
+    },
+    {
+      "codigo": "CAND-0143",
+      "origem": "Indicação",
+      "veiculo": "VUC",
+      "regiao": "Região B",
+      "dias_no_funil": 5,
+      "etapa": "Documentação",
+      "documentos": 3
+    },
+    {
+      "codigo": "CAND-0144",
+      "origem": "Mensagem",
+      "veiculo": "Truck",
+      "regiao": "Região A",
+      "dias_no_funil": 8,
+      "etapa": "Documentação",
+      "documentos": 2
+    },
+    {
+      "codigo": "CAND-0145",
+      "origem": "Site",
+      "veiculo": "Utilitário pequeno",
+      "regiao": "Região C",
+      "dias_no_funil": 11,
+      "etapa": "Análise",
+      "documentos": 5
+    },
+    {
+      "codigo": "CAND-0146",
+      "origem": "Mensagem",
+      "veiculo": "VUC",
+      "regiao": "Região B",
+      "dias_no_funil": 14,
+      "etapa": "Análise",
+      "documentos": 5
+    },
+    {
+      "codigo": "CAND-0147",
+      "origem": "Indicação",
+      "veiculo": "Truck",
+      "regiao": "Região A",
+      "dias_no_funil": 19,
+      "etapa": "Aprovado",
+      "documentos": 5
+    },
+    {
+      "codigo": "CAND-0148",
+      "origem": "Mensagem",
+      "veiculo": "VUC",
+      "regiao": "Região C",
+      "dias_no_funil": 3,
+      "etapa": "Recebido",
+      "documentos": 0
+    }
+  ],
+
+  "documentos_exigidos": 5
+}

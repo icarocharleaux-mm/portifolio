@@ -21,9 +21,13 @@ import streamlit as st
 from utils import (
     ROTAS,
     aplicar_css,
+    aviso_demo,
     bloco_rotulado,
+    cabecalho_secao,
+    carregar_json,
     carregar_perfil,
     carregar_projetos,
+    coluna_funil,
     estimativa,
     faixa_cta,
     hero,
@@ -114,6 +118,119 @@ for indice, projeto in enumerate(visiveis):
                 st.link_button("Código", projeto["repositorio"])
             if projeto.get("demo"):
                 st.link_button("Demo", projeto["demo"])
+
+# --------------------------------------------------------------------------- #
+# Demonstracao interativa: o funil da plataforma de triagem
+#
+# Esta e uma RECRIACAO do fluxo em Streamlit, nao a plataforma real (NestJS,
+# PostgreSQL, Redis e Next.js em contedor). Existe para o visitante manusear a
+# mecanica -- mover candidato, ver a trilha de auditoria crescer -- em vez de
+# so ler que ela existe. Os dados sao ficticios e nao ha nenhum campo pessoal.
+#
+# O estado vive em st.session_state, entao cada visitante mexe na propria
+# copia: um nao interfere no outro, e nada e gravado em lugar nenhum.
+# --------------------------------------------------------------------------- #
+cabecalho_secao(
+    "Demonstração",
+    "Funil de triagem, funcionando",
+    "Mova um candidato e veja a trilha de auditoria registrar a transição.",
+)
+
+aviso_demo(
+    "Esta tela é uma <b>recriação do fluxo</b> em Streamlit, para você manusear a "
+    "mecânica aqui mesmo. A plataforma real roda em NestJS, PostgreSQL, Redis e "
+    "Next.js, em contêiner. Os candidatos são <b>fictícios</b> — sem nome, documento "
+    "ou telefone — e nada do que você fizer aqui é gravado."
+)
+
+demo = carregar_json("demo_triagem.json")
+ETAPAS = [e["nome"] for e in demo["etapas"]]
+
+# Primeira visita da sessao: copia o estado inicial do JSON.
+if "triagem_candidatos" not in st.session_state:
+    st.session_state.triagem_candidatos = [dict(c) for c in demo["candidatos"]]
+    st.session_state.triagem_auditoria = []
+
+
+def _mover(codigo: str, destino: str) -> None:
+    """Move um candidato e registra a transicao, como o sistema real faz."""
+    for candidato in st.session_state.triagem_candidatos:
+        if candidato["codigo"] == codigo:
+            origem = candidato["etapa"]
+            if origem == destino:
+                return
+            candidato["etapa"] = destino
+            st.session_state.triagem_auditoria.insert(
+                0, {"codigo": codigo, "de": origem, "para": destino}
+            )
+            return
+
+
+# --- Quadro: uma coluna por etapa -------------------------------------------
+colunas = st.columns(len(ETAPAS), gap="medium")
+
+for coluna, etapa in zip(colunas, demo["etapas"]):
+    nome = etapa["nome"]
+    fichas = [
+        {
+            "codigo": c["codigo"],
+            "meta": [
+                f"{c['veiculo']} · {c['regiao']}",
+                f"{c['documentos']}/{demo['documentos_exigidos']} documentos · {c['dias_no_funil']}d no funil",
+            ],
+        }
+        for c in st.session_state.triagem_candidatos
+        if c["etapa"] == nome
+    ]
+    with coluna:
+        coluna_funil(nome, etapa["descricao"], fichas)
+
+# --- Controles ---------------------------------------------------------------
+st.write("")
+controle_candidato, controle_etapa, controle_acao = st.columns([2, 2, 1], gap="medium")
+
+with controle_candidato:
+    escolhido = st.selectbox(
+        "Candidato",
+        options=[c["codigo"] for c in st.session_state.triagem_candidatos],
+        help="Código mascarado, como aparece no painel real.",
+    )
+
+with controle_etapa:
+    atual = next(
+        c["etapa"] for c in st.session_state.triagem_candidatos if c["codigo"] == escolhido
+    )
+    destino = st.selectbox(
+        "Mover para", options=ETAPAS, index=ETAPAS.index(atual)
+    )
+
+with controle_acao:
+    st.write("")
+    if st.button("Mover", type="primary", use_container_width=True):
+        _mover(escolhido, destino)
+        st.rerun()
+
+# --- Trilha de auditoria ------------------------------------------------------
+auditoria = st.session_state.triagem_auditoria
+
+if auditoria:
+    quantas = len(auditoria)
+    rotulo(f"Trilha de auditoria · {quantas} {'movimentação' if quantas == 1 else 'movimentações'}")
+    lista([f"`{a['codigo']}` — {a['de']} → **{a['para']}**" for a in auditoria[:8]])
+    if quantas > 8:
+        restantes = quantas - 8
+        st.caption(
+            f"…e mais {restantes} {'registro' if restantes == 1 else 'registros'} anteriores."
+        )
+    if st.button("Reiniciar a simulação"):
+        del st.session_state.triagem_candidatos
+        del st.session_state.triagem_auditoria
+        st.rerun()
+else:
+    st.caption(
+        "Nenhuma movimentação ainda. Cada transição que você fizer aparece aqui — "
+        "no sistema real, gravada com autor, data e etapa de origem."
+    )
 
 # --------------------------------------------------------------------------- #
 # Fechamento
