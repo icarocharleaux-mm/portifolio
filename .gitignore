@@ -58,3 +58,6 @@ data/real/
 
 # ---------- Config local do Claude Code ----------
 .claude/settings.local.json
+
+# ---------- Dados locais das ferramentas de agente ----------
+.claude-flow/
