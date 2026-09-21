@@ -34,7 +34,10 @@ st.set_page_config(
     page_title="Icaro Charleaux | Automação e Inovação em Logística",
     page_icon="⚡",
     layout="wide",
-    initial_sidebar_state="expanded",
+    # "auto" abre a barra lateral no desktop e a mantem fechada no celular.
+    # Com "expanded", quem chega pelo celular cai numa tela coberta pelo menu,
+    # com o hero escondido atras dele.
+    initial_sidebar_state="auto",
 )
 
 aplicar_css()
