@@ -79,6 +79,12 @@ if perfil.get("diferenciais"):
 # --------------------------------------------------------------------------- #
 # Skills tecnicas, agrupadas por categoria em duas colunas
 # --------------------------------------------------------------------------- #
+def _tem_nivel(item: dict) -> bool:
+    """True quando o item traz um nivel preenchido (texto ou numero)."""
+    valor = item.get("nivel")
+    return valor is not None and str(valor).strip() != ""
+
+
 categorias = skills.get("categorias", [])
 
 if categorias:
@@ -102,8 +108,16 @@ if categorias:
             # O strip fica dentro do negrito: "** titulo**" nao renderiza em Markdown.
             rotulo = f"{categoria.get('icone', '')} {titulo}".strip()
             st.markdown(f"**{rotulo}**")
-            for item in itens:
-                skill(item.get("nome", ""), item.get("nivel"))
+
+            # Se nenhum item da categoria tem nivel, sai tudo como um unico
+            # grupo de etiquetas, que quebra em varias colunas. Uma etiqueta
+            # por linha gastaria meia tela de rolagem com a lista cheia.
+            if any(_tem_nivel(item) for item in itens):
+                for item in itens:
+                    skill(item.get("nome", ""), item.get("nivel"))
+            else:
+                lista_de_tags([item.get("nome", "") for item in itens])
+
             st.write("")  # respiro entre categorias
 
 # --------------------------------------------------------------------------- #
