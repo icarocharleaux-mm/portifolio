@@ -16,7 +16,6 @@ from utils.data_loader import (
     projetos_em_destaque,
 )
 from utils.styles import (
-    CORES_GRAFICO,
     PALETA,
     ROTAS,
     aplicar_css,
@@ -48,7 +47,6 @@ __all__ = [
     "carregar_projetos",
     "carregar_skills",
     "projetos_em_destaque",
-    "CORES_GRAFICO",
     "PALETA",
     "ROTAS",
     "aplicar_css",

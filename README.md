@@ -6,8 +6,7 @@ digitais, automações de e-mail e dashboards operacionais.
 
 > **Nada de dado sensível aqui.** Os casos em `data/projetos.json` são reais, mas
 > descritos de forma anonimizada: sem nome de empresa, filial, cliente ou
-> fornecedor, sem número operacional bruto e sem dado pessoal. O CSV usado na
-> mini-demo (`data/sla_exemplo.csv`) é inteiramente fictício.
+> fornecedor, sem número operacional bruto e sem dado pessoal.
 
 ---
 
@@ -54,15 +53,14 @@ portfolio/
 ├── pages/
 │   ├── 0_Home.py              # hero + "o que eu resolvo" + destaques + CTA
 │   ├── 4_Servicos.py          # pacotes de serviço + processo de trabalho
-│   ├── 2_Projetos.py          # projetos em expanders + mini-demo de gráfico
+│   ├── 2_Projetos.py          # projetos em expanders, com filtro por categoria
 │   ├── 1_Sobre.py             # bio, diferenciais, skills, stack
 │   └── 3_Contato.py           # canais + formulário que monta um e-mail
 ├── data/                      # TODO o conteúdo editável
 │   ├── perfil.json            # nome, cargo, bio, "o que eu resolvo", links
 │   ├── projetos.json          # lista de projetos
 │   ├── servicos.json          # pacotes, entregáveis e etapas do processo
-│   ├── skills.json            # skills por categoria, ferramentas, idiomas
-│   └── sla_exemplo.csv        # dados fictícios usados na mini-demo
+│   └── skills.json            # skills por categoria, ferramentas, idiomas
 ├── assets/
 │   ├── tema.css               # TODO o visual: cores, cards, animações
 │   └── avatar_placeholder.svg # troque pela sua foto
@@ -90,7 +88,6 @@ O código não precisa ser tocado — **tudo vive em `data/`**:
 | Pacotes de serviço e processo de trabalho | `data/servicos.json` |
 | Projetos (problema → solução → tecnologias → resultado) | `data/projetos.json` |
 | Skills, ferramentas, idiomas | `data/skills.json` |
-| Dados da mini-demo | `data/sla_exemplo.csv` |
 | Foto/avatar | coloque o arquivo em `assets/` e aponte `avatar` em `perfil.json` |
 | Cores, espaçamento, animações | `assets/tema.css` → variáveis de `:root` |
 
@@ -100,7 +97,8 @@ A paleta aparece em **três lugares** e os três precisam andar juntos:
 
 1. `assets/tema.css` → bloco `:root` (o visual próprio: hero, cards, gradientes)
 2. `.streamlit/config.toml` → `[theme]` (componentes nativos: inputs, sidebar, botões)
-3. `utils/styles.py` → `PALETA` (usada pelas cores das séries do gráfico)
+3. `utils/styles.py` → `PALETA` (cópia em Python, para uso de qualquer código
+   que precise das cores — gráficos, imagens geradas)
 
 A paleta atual é "dark tech": grafite `#0B0F17`, ciano `#22D3EE`, índigo `#6366F1`
 e violeta `#A78BFA` no gradiente.

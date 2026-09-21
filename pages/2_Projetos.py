@@ -16,16 +16,12 @@ cliente, e nenhum dado pessoal. Numeros de projetos fechados devem ser
 apresentados como variacao percentual, nunca como base bruta.
 """
 
-import altair as alt
 import streamlit as st
 
 from utils import (
-    CORES_GRAFICO,
     ROTAS,
     aplicar_css,
     bloco_rotulado,
-    cabecalho_secao,
-    carregar_csv,
     carregar_perfil,
     carregar_projetos,
     estimativa,
@@ -118,58 +114,6 @@ for indice, projeto in enumerate(visiveis):
                 st.link_button("Código", projeto["repositorio"])
             if projeto.get("demo"):
                 st.link_button("Demo", projeto["demo"])
-
-# --------------------------------------------------------------------------- #
-# Mini-demo: exemplo de visualizacao com dados ficticios
-#
-# Serve para mostrar que o portfolio roda codigo de verdade, nao so texto.
-# Troque por uma demo de um projeto seu quando tiver uma.
-# --------------------------------------------------------------------------- #
-cabecalho_secao(
-    "Demonstração",
-    "SLA por filial",
-    "Exemplo de painel operacional. Os dados são fictícios (data/sla_exemplo.csv).",
-)
-
-dados = carregar_csv("sla_exemplo.csv")
-
-coluna_grafico, coluna_tabela = st.columns([1.6, 1], gap="large")
-
-with coluna_grafico:
-    # Altair em vez de st.line_chart porque aqui precisamos fixar o dominio do
-    # eixo Y: a variacao de SLA e pequena e, com o eixo comecando no zero, as
-    # linhas ficariam coladas no topo e sem leitura.
-    grafico = (
-        alt.Chart(dados)
-        .mark_line(point=True, strokeWidth=2.5)
-        .encode(
-            x=alt.X("mes:N", title="Mês"),
-            y=alt.Y(
-                "sla_pct:Q",
-                title="SLA (%)",
-                scale=alt.Scale(domain=[80, 100], nice=False),
-            ),
-            # Cores do tema, para o grafico conversar com o resto da pagina.
-            color=alt.Color(
-                "filial:N",
-                title="Filial",
-                scale=alt.Scale(range=CORES_GRAFICO),
-            ),
-            tooltip=["mes", "filial", "sla_pct", "entregas"],
-        )
-        .properties(height=320)
-    )
-    st.altair_chart(grafico, width="stretch")
-
-with coluna_tabela:
-    resumo = (
-        dados.groupby("filial")
-        .agg(entregas=("entregas", "sum"), sla_medio=("sla_pct", "mean"))
-        .round({"sla_medio": 1})
-        .reset_index()
-    )
-    st.dataframe(resumo, hide_index=True)
-    st.caption("Valores fictícios, gerados apenas para a demonstração.")
 
 # --------------------------------------------------------------------------- #
 # Fechamento

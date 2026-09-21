@@ -32,9 +32,6 @@ PALETA = {
     "suave": "#8FA3BF",
 }
 
-# Sequencia de cores para series de grafico, na ordem de uso.
-CORES_GRAFICO = [PALETA["acento"], PALETA["acento_2"], PALETA["acento_3"]]
-
 
 def _render(html: str) -> None:
     """Renderiza HTML proprio.
