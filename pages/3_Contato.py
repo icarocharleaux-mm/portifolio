@@ -125,8 +125,11 @@ if enviado:
         )
         st.link_button("Abrir no meu cliente de e-mail", url_mailto)
 
-        with st.expander("Ou copie o texto"):
-            st.code(f"Para: {links['email']}\nAssunto: {assunto}\n\n{corpo}", language="text")
+        # O endereco de destino NAO entra aqui de proposito: ele so existe no
+        # href do botao acima. Imprimir "Para: <email>" na tela devolveria o
+        # endereco para qualquer robo que le o texto da pagina.
+        with st.expander("Ou copie o texto da mensagem"):
+            st.code(f"Assunto: {assunto}\n\n{corpo}", language="text")
 
         st.caption(
             "Esta pagina nao guarda o que voce digitou. O conteudo so sai daqui "
