@@ -31,8 +31,10 @@ from utils import (
     estimativa,
     faixa_cta,
     hero,
+    lista,
     lista_de_tags,
     rodape,
+    rotulo,
 )
 
 st.set_page_config(
@@ -100,13 +102,12 @@ for indice, projeto in enumerate(visiveis):
 
         with coluna_lateral:
             if projeto.get("tecnologias"):
-                st.markdown("**Tecnologias**")
+                rotulo("Tecnologias")
                 lista_de_tags(projeto["tecnologias"])
 
             if projeto.get("resultado"):
-                st.markdown("**Resultado verificável**")
-                for linha in projeto["resultado"]:
-                    st.markdown(f"- {linha}")
+                rotulo("Resultado verificável")
+                lista(projeto["resultado"])
 
             # Sai visualmente separado do bloco acima: projetado nao e medido.
             if projeto.get("estimativa"):

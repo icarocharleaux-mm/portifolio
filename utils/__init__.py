@@ -31,9 +31,11 @@ from utils.styles import (
     estimativa,
     faixa_cta,
     hero,
+    lista,
     lista_de_tags,
     passo,
     rodape,
+    rotulo,
     skill,
 )
 
@@ -61,8 +63,10 @@ __all__ = [
     "estimativa",
     "faixa_cta",
     "hero",
+    "lista",
     "lista_de_tags",
     "passo",
     "rodape",
+    "rotulo",
     "skill",
 ]

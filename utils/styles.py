@@ -288,11 +288,35 @@ def lista_de_tags(tags: Iterable[str]) -> None:
     _render(f'<div class="pf-tags">{itens}</div>')
 
 
-def bloco_rotulado(rotulo: str, conteudo: str) -> None:
+def rotulo(texto: str) -> None:
+    """Rotulo de sub-bloco ("Tecnologias", "Idiomas", "Resultado verificavel").
+
+    Existe para substituir o `st.markdown("**Texto**")` que era usado nesses
+    lugares: negrito renderiza como paragrafo, ficando no mesmo rank visual do
+    corpo que ele deveria rotular -- e invisivel para quem navega por
+    cabecalhos. Aqui o rank vem da caixa alta e do espacamento entre letras.
+    """
+    _render(f'<div class="pf-rotulo">{escape(texto)}</div>')
+
+
+def lista(itens: Sequence[str]) -> None:
+    """Lista de bullets em UMA chamada ao Streamlit.
+
+    Chamar `st.markdown(f"- {item}")` em laco cria um <ul> por item: N listas
+    de um elemento, em vez de uma lista de N. Alem de semanticamente errado,
+    cada chamada vira um bloco proprio e herda o gap do container flex, entao
+    os itens saem afastados como se fossem secoes distintas.
+    """
+    if not itens:
+        return
+    st.markdown("\n".join(f"- {item}" for item in itens))
+
+
+def bloco_rotulado(titulo: str, conteudo: str) -> None:
     """Par rotulo + texto, usado no detalhe do projeto (Problema, Solucao...)."""
     _render(
         '<div class="pf-bloco">'
-        f'<div class="pf-rotulo">{escape(rotulo)}</div>'
+        f'<div class="pf-rotulo">{escape(titulo)}</div>'
         f'<div class="pf-conteudo">{escape(conteudo)}</div>'
         "</div>"
     )

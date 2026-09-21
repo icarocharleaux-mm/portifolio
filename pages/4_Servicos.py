@@ -46,6 +46,9 @@ else:
 hero(
     kicker="Serviços",
     titulo=servicos.get("chamada", ""),
+    # Servicos era a unica pagina com o h1 chapado, sem o gradiente que as
+    # outras quatro usam -- justamente a pagina que existe para vender.
+    titulo_destaque=servicos.get("chamada_destaque", ""),
     descricao=servicos.get("subchamada", ""),
     acoes=acoes_hero,
 )

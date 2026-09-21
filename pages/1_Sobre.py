@@ -24,8 +24,10 @@ from utils import (
     carregar_skills,
     faixa_cta,
     hero,
+    lista,
     lista_de_tags,
     rodape,
+    rotulo,
     skill,
 )
 
@@ -73,8 +75,7 @@ with coluna_avatar:
 # --------------------------------------------------------------------------- #
 if perfil.get("diferenciais"):
     cabecalho_secao("Método", "Como eu trabalho")
-    for item in perfil["diferenciais"]:
-        st.markdown(f"- {item}")
+    lista(perfil["diferenciais"])
 
 # --------------------------------------------------------------------------- #
 # Skills tecnicas, agrupadas por categoria em duas colunas
@@ -105,9 +106,7 @@ if categorias:
         itens = categoria.get("itens") or categoria.get("ferramentas") or []
 
         with destino:
-            # O strip fica dentro do negrito: "** titulo**" nao renderiza em Markdown.
-            rotulo = f"{categoria.get('icone', '')} {titulo}".strip()
-            st.markdown(f"**{rotulo}**")
+            rotulo(f"{categoria.get('icone', '')} {titulo}".strip())
 
             # Se nenhum item da categoria tem nivel, sai tudo como um unico
             # grupo de etiquetas, que quebra em varias colunas. Uma etiqueta

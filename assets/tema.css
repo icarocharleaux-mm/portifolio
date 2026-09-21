@@ -6,7 +6,10 @@
    Tudo abaixo delas deriva dessas cores.
    ========================================================================== */
 
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap");
+/* Eixo variavel (300..800), nao instancias discretas: pesos intermediarios
+   como 550/650/750 so existem assim. Com a lista discreta anterior eles
+   caiam para 600/700/800 e a escada de peso colapsava. */
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300..800&display=swap");
 
 :root {
   --bg: #0b0f17;          /* fundo da pagina */
@@ -15,7 +18,14 @@
   --borda: #22304a;
   --acento: #22d3ee;      /* ciano  -- acao, destaque */
   --acento-2: #6366f1;    /* indigo -- segundo tom do gradiente */
-  --acento-3: #a78bfa;    /* violeta -- fecho do gradiente */
+  --acento-3: #a78bfa;   /* violeta -- fecho do gradiente */
+  /* #6366f1 rende 4.29:1 sobre o fundo e reprova no AA como TEXTO.
+     Este tom claro (6.43:1) e usado onde o indigo vira letra; o original
+     continua valendo onde ele e so preenchimento. */
+  --acento-2-texto: #818cf8;
+  /* Contorno de controle exige 3:1 (WCAG 1.4.11). --borda rende 1.45:1:
+     serve para separar superficie, nao para delimitar botao. */
+  --borda-forte: #4d6288;
   --texto: #e6edf7;
   --suave: #8fa3bf;       /* texto secundario */
   --raio: 16px;
@@ -106,6 +116,9 @@ a { color: var(--acento); }
 /* Titulo padrao do hero: nas paginas internas ele carrega uma frase inteira,
    entao fica em uma escala de leitura, nao de marca. */
 .pf-hero h1 {
+  /* Acima de ~30 caracteres por linha um titulo display deixa de ser lido
+     em bloco e passa a ser lido palavra a palavra. */
+  max-width: 24ch;
   font-size: clamp(2.1rem, 5vw, 3.5rem);
   line-height: 1.08;
   font-weight: 800;
@@ -116,16 +129,17 @@ a { color: var(--acento); }
    respira embaixo. Os dois clamps sao propositalmente distantes -- mesmo na
    menor largura de tela o nome continua maior que o subtitulo. */
 .pf-hero-nome h1 {
-  font-size: clamp(2.6rem, 6.5vw, 4.4rem);
-  line-height: 1.04;
-  margin: 1.1rem 0 0.2rem;
+  font-size: clamp(2.2rem, 5.2vw, 3.2rem);
+  line-height: 1.06;
+  margin: 1.1rem 0 0.25rem;
 }
 
 .pf-hero h2.pf-hero-sub {
-  font-size: clamp(1.2rem, 2.7vw, 1.9rem);
-  line-height: 1.3;
-  /* Peso leve: o gradiente ja chama atencao, o corpo da fonte nao precisa. */
-  font-weight: 300;
+  font-size: clamp(1.25rem, 2.8vw, 1.9rem);
+  line-height: 1.32;
+  /* 500, nao 300: a promessa comercial e o que o visitante precisa ler
+     primeiro. O gradiente da o destaque; o peso garante a legibilidade. */
+  font-weight: 500;
   letter-spacing: -0.005em;
   margin: 0 0 1.1rem;
   max-width: 24ch;
@@ -133,7 +147,7 @@ a { color: var(--acento); }
 
 /* Texto com preenchimento em gradiente. */
 .pf-grad {
-  background: linear-gradient(100deg, var(--acento), var(--acento-2) 58%, var(--acento-3));
+  background: linear-gradient(100deg, var(--acento), var(--acento-2-texto) 58%, var(--acento-3));
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
@@ -175,7 +189,7 @@ a { color: var(--acento); }
 .pf-btn-secundario {
   background: rgba(255, 255, 255, 0.04);
   color: var(--texto) !important;
-  border: 1px solid var(--borda);
+  border: 1px solid var(--borda-forte);
 }
 .pf-btn-secundario:hover { transform: translateY(-2px); border-color: rgba(34, 211, 238, 0.55); }
 
@@ -206,7 +220,7 @@ a { color: var(--acento); }
 .pf-card:hover { transform: translateY(-6px); border-color: rgba(34, 211, 238, 0.45); box-shadow: var(--sombra); }
 .pf-card:hover::before { opacity: 1; }
 
-.pf-card h4 { margin: 0 0 0.45rem; font-size: 1.02rem; line-height: 1.4; color: var(--texto); font-weight: 650; }
+.pf-card h4 { margin: 0 0 0.5rem; font-size: 1.125rem; line-height: 1.35; color: var(--texto); font-weight: 650; }
 .pf-card p { margin: 0; color: var(--suave); font-size: 0.9rem; line-height: 1.6; }
 
 .pf-icone {
@@ -227,7 +241,9 @@ a { color: var(--acento); }
   font-size: 0.7rem;
   text-transform: uppercase;
   letter-spacing: 0.1em;
-  color: var(--acento);
+  /* Rotulo estrutural sai do ciano: caixa alta e espacamento ja o marcam como
+     rotulo, e o ciano fica reservado para o que e clicavel. */
+  color: var(--suave);
   font-weight: 700;
 }
 
@@ -262,7 +278,7 @@ a { color: var(--acento); }
   color: var(--suave);
 }
 .pf-prova b {
-  color: var(--acento);
+  color: var(--suave);
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.08em;
@@ -281,7 +297,7 @@ a { color: var(--acento); }
   font-size: 1.55rem;
   font-weight: 800;
   line-height: 1;
-  background: linear-gradient(140deg, var(--acento), var(--acento-2));
+  background: linear-gradient(140deg, var(--acento), var(--acento-2-texto));
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
@@ -345,15 +361,20 @@ a { color: var(--acento); }
 /* ---------- Bloco rotulado (problema / solucao / aprendizado) ---------- */
 
 .pf-bloco { margin-bottom: 1.1rem; }
-.pf-bloco .pf-rotulo {
+
+/* Seletor sem aninhamento: o mesmo rotulo serve dentro do .pf-bloco e solto,
+   como cabecalho de sub-bloco ("Tecnologias", "Idiomas"). Antes esses usavam
+   **negrito**, que renderiza como paragrafo -- mesmo rank do corpo, e invisivel
+   para quem navega por cabecalhos. */
+.pf-rotulo {
   font-size: 0.71rem;
   font-weight: 800;
   text-transform: uppercase;
   letter-spacing: 0.13em;
-  color: var(--acento);
+  color: var(--suave);
   margin-bottom: 0.35rem;
 }
-.pf-bloco .pf-conteudo { color: var(--texto); line-height: 1.7; font-size: 0.94rem; opacity: 0.92; }
+.pf-bloco .pf-conteudo { color: var(--texto); line-height: 1.7; font-size: 0.94rem; opacity: 0.92; max-width: 68ch; }
 
 /* ---------- Cabecalho de secao ---------- */
 
@@ -365,7 +386,7 @@ a { color: var(--acento); }
   color: var(--acento);
   font-weight: 800;
 }
-.pf-secao h3 { font-size: clamp(1.45rem, 3vw, 1.95rem); font-weight: 750; margin: 0.35rem 0 0.3rem; }
+.pf-secao h3 { font-size: clamp(1.4rem, 3vw, 1.9rem); font-weight: 700; margin: 0.35rem 0 0.3rem; }
 .pf-secao p { margin: 0; color: var(--suave); font-size: 0.94rem; }
 
 /* ---------- Skills ---------- */
@@ -429,6 +450,45 @@ div[data-testid="stLinkButton"] a {
 }
 div[data-testid="stLinkButton"] a:hover { border-color: var(--acento) !important; transform: translateY(-1px); }
 
+/* ---------- Foco visivel (WCAG 2.4.7) ---------- */
+
+/* O reset do Streamlit zera o outline. Sem esta regra, quem navega por Tab
+   nao enxerga onde esta. :focus-visible so acende para teclado, entao o
+   clique de mouse continua limpo. */
+.pf-btn:focus-visible,
+.pf-rodape a:focus-visible,
+[data-testid="stTopNavLink"]:focus-visible,
+[data-testid="stExpander"] summary:focus-visible {
+  outline: 3px solid var(--acento) !important;
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+/* ---------- Colunas em tablet ---------- */
+
+/* st.columns(3) nao refluia: a 768px eram tres colunas de 221px e os cards
+   viravam torres de tres palavras por linha. */
+@media (max-width: 900px) {
+  [data-testid="stHorizontalBlock"] { flex-wrap: wrap; }
+  /* flex-grow 0 de proposito: com grow, um card orfao na ultima linha
+     esticava para a largura inteira e destoava dos irmaos. */
+  /* O gap do stHorizontalBlock e 32px (2rem). A base precisa descontar metade
+     dele de cada coluna, senao duas colunas + gap estouram o contedor e cada
+     uma cai em uma linha. Descontamos 1.2rem para sobrar folga. */
+  [data-testid="stHorizontalBlock"] > [data-testid="stColumn"] {
+    flex: 0 1 calc(50% - 1.2rem);
+    min-width: calc(50% - 1.2rem);
+  }
+}
+
+/* Abaixo de 600px nem duas colunas cabem: uma por linha. */
+@media (max-width: 600px) {
+  [data-testid="stHorizontalBlock"] > [data-testid="stColumn"] {
+    flex-basis: 100%;
+    min-width: 100%;
+  }
+}
+
 /* ---------- Animacao de entrada ---------- */
 
 @keyframes pfSobe {
@@ -446,6 +506,16 @@ div[data-testid="stLinkButton"] a:hover { border-color: var(--acento) !important
 @media (prefers-reduced-motion: reduce) {
   .pf-anima { animation: none; }
   .pf-card:hover, .pf-btn:hover { transform: none; }
+}
+
+/* ---------- Medida do texto nativo do Streamlit ---------- */
+
+/* O CSS disciplinava a medida so no HTML proprio (.pf-lead em 62ch). Tudo
+   que sai por st.write/st.markdown corria solto -- a bio media 84ch em
+   1440px. max-width apenas restringe, entao em coluna estreita nao muda nada. */
+[data-testid="stMarkdownContainer"] p,
+[data-testid="stMarkdownContainer"] li {
+  max-width: 68ch;
 }
 
 /* ---------- Telas pequenas ---------- */

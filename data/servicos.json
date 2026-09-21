@@ -1,7 +1,8 @@
 {
   "_comentario": "Conteudo da pagina Servicos. Cada pacote precisa apontar para um projeto real que o comprove -- 'prova' e o texto que aparece como evidencia no card. Nao escreva pacote que voce nao consiga sustentar com um caso.",
 
-  "chamada": "Processo que consome gente todo dia é processo que dá para automatizar",
+  "chamada": "Processo que consome gente todo dia",
+  "chamada_destaque": "é processo que dá para automatizar",
   "subchamada": "Levo a operação logística do manual para o automatizado — com a camada de segurança que dado operacional exige.",
 
   "pacotes": [
