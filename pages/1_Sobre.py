@@ -16,27 +16,38 @@ rotulo) ou vazio (so o nome aparece).
 import streamlit as st
 
 from utils import (
+    ROTAS,
     aplicar_css,
     avatar,
     cabecalho_secao,
     carregar_perfil,
     carregar_skills,
+    faixa_cta,
+    hero,
     lista_de_tags,
     rodape,
     skill,
 )
 
-st.set_page_config(page_title="Sobre | Portfolio", page_icon="\U0001f464", layout="wide")
+st.set_page_config(page_title="Sobre | Icaro Charleaux", page_icon="\U0001f464", layout="wide")
 aplicar_css()
 
 perfil = carregar_perfil()
 skills = carregar_skills()
 
 # --------------------------------------------------------------------------- #
+# Abertura
+# --------------------------------------------------------------------------- #
+hero(
+    kicker="Sobre mim",
+    titulo="Entre a operação",
+    titulo_destaque="e o código que a sustenta",
+    descricao=perfil.get("resumo_curto", ""),
+)
+
+# --------------------------------------------------------------------------- #
 # Bio
 # --------------------------------------------------------------------------- #
-st.title("Sobre mim")
-
 coluna_bio, coluna_avatar = st.columns([2.4, 1], gap="large")
 
 with coluna_bio:
@@ -46,11 +57,9 @@ with coluna_bio:
         for paragrafo in paragrafos:
             st.write(paragrafo)
     else:
-        # Sem bio escrita, cai no resumo curto da Home para a pagina nao ficar vazia.
-        st.write(perfil.get("resumo_curto", ""))
         st.info(
             'Adicione uma chave `"bio"` (lista de paragrafos) em data/perfil.json '
-            "para contar a sua trajetoria com mais espaco.",
+            "para contar a sua trajetória com mais espaço. O texto acima é o resumo curto.",
             icon="✍️",
         )
 
@@ -63,11 +72,9 @@ with coluna_avatar:
 # Diferenciais (opcional -- some se a chave nao existir)
 # --------------------------------------------------------------------------- #
 if perfil.get("diferenciais"):
-    cabecalho_secao("Como eu trabalho")
+    cabecalho_secao("Método", "Como eu trabalho")
     for item in perfil["diferenciais"]:
         st.markdown(f"- {item}")
-
-st.divider()
 
 # --------------------------------------------------------------------------- #
 # Skills tecnicas, agrupadas por categoria em duas colunas
@@ -75,7 +82,11 @@ st.divider()
 categorias = skills.get("categorias", [])
 
 if categorias:
-    cabecalho_secao("Skills tecnicas", "Ajuste as categorias em data/skills.json.")
+    cabecalho_secao(
+        "Stack",
+        "Com o que eu construo",
+        "Ferramentas que uso nos projetos desta página. Ajuste em data/skills.json.",
+    )
 
     coluna_esquerda, coluna_direita = st.columns(2, gap="large")
 
@@ -95,8 +106,6 @@ if categorias:
                 skill(item.get("nome", ""), item.get("nivel"))
             st.write("")  # respiro entre categorias
 
-    st.divider()
-
 # --------------------------------------------------------------------------- #
 # Ferramentas e idiomas (cada bloco so aparece se houver conteudo)
 # --------------------------------------------------------------------------- #
@@ -108,21 +117,26 @@ if ferramentas or idiomas:
 
     with coluna_ferramentas:
         if ferramentas:
-            cabecalho_secao("Ferramentas do dia a dia")
+            cabecalho_secao("", "Ferramentas do dia a dia")
             lista_de_tags(ferramentas)
 
     with coluna_idiomas:
         if idiomas:
-            cabecalho_secao("Idiomas")
+            cabecalho_secao("", "Idiomas")
             for idioma in idiomas:
                 st.markdown(f"**{idioma['nome']}** — {idioma.get('nivel', '')}")
 
-    st.divider()
-
-coluna_a, coluna_b = st.columns(2)
-with coluna_a:
-    st.page_link("pages/2_Projetos.py", label="Ver projetos", icon="\U0001f6e0️")
-with coluna_b:
-    st.page_link("pages/3_Contato.py", label="Falar comigo", icon="✉️")
+# --------------------------------------------------------------------------- #
+# Fechamento
+# --------------------------------------------------------------------------- #
+faixa_cta(
+    "Quer ver isso aplicado?",
+    "Os projetos mostram o caminho completo: qual era o gargalo, o que foi construído "
+    "e o que mudou na operação depois.",
+    [
+        ("Ver projetos", ROTAS["projetos"], "primario"),
+        ("Falar comigo", ROTAS["contato"], "secundario"),
+    ],
+)
 
 rodape()

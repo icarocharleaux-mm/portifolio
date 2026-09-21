@@ -1,18 +1,21 @@
-# Tema do portfolio -- paleta neutra profissional ("azul ardosia sobre cinza claro")
+# Tema "dark tech" do portfolio.
 #
-#   #3D5A80  azul ardosia   -> acentos, botoes, links
-#   #1F2933  quase preto    -> texto principal (mais suave que preto puro)
-#   #F4F6F8  cinza claro    -> superficies (sidebar, inputs, cards)
-#   #FFFFFF  branco         -> fundo
+#   #0B0F17  grafite       -> fundo da pagina
+#   #131A26  grafite claro -> superficies (sidebar, inputs, cards nativos)
+#   #22D3EE  ciano         -> cor de acao (botoes, links, foco)
+#   #E6EDF7  quase branco  -> texto
 #
-# Se mudar as cores aqui, atualize tambem o dicionario PALETA em utils/styles.py.
+# Isto cobre os componentes nativos do Streamlit. O visual proprio do
+# portfolio (hero, cards, gradientes, animacoes) esta em assets/tema.css,
+# e a paleta aparece uma terceira vez em utils/styles.py -> PALETA, usada
+# pelos graficos. Ao trocar de cor, atualize os tres.
 
 [theme]
-base = "light"
-primaryColor = "#3D5A80"
-backgroundColor = "#FFFFFF"
-secondaryBackgroundColor = "#F4F6F8"
-textColor = "#1F2933"
+base = "dark"
+primaryColor = "#22D3EE"
+backgroundColor = "#0B0F17"
+secondaryBackgroundColor = "#131A26"
+textColor = "#E6EDF7"
 font = "sans serif"
 
 [browser]

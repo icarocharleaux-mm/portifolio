@@ -4,6 +4,26 @@
   "resumo_curto": "Transformo gargalos logísticos em operações eficientes. Com formação em Química e especializações em Engenharia de Produção e Gestão da Qualidade (MBA), desenvolvo ferramentas de automação e análise de dados que otimizam desde a captação de agregados até à monitorização de avarias em tempo real.",
   "localizacao": "Brasil",
   "avatar": "assets/avatar_placeholder.svg",
+
+  "_comentario_solucoes": "Esta seção traduz suas competências em dor de cliente. Foi escrita a partir dos projetos em projetos.json, sem inventar número de impacto. Ajuste o texto para soar como você fala.",
+  "solucoes": [
+    {
+      "icone": "🔁",
+      "titulo": "Processo manual que não escala",
+      "texto": "Rotina que hoje depende de alguém repetindo passos em planilha vira script agendado, com tratamento de erro e plano de volume definido antes de virar gargalo."
+    },
+    {
+      "icone": "📎",
+      "titulo": "Controle no papel, evidência perdida",
+      "texto": "Checklist, auditoria e inspeção saem do papel para um app com campo obrigatório, foto como evidência e registro consultável em segundos."
+    },
+    {
+      "icone": "🎯",
+      "titulo": "Demanda chegando sem critério",
+      "texto": "Pedido de automação deixa de ser ordem de chegada: entra por um formulário estruturado e é priorizado por impacto e esforço, com critério explícito."
+    }
+  ],
+
   "links": {
     "linkedin": "https://www.linkedin.com/in/icaro-charleaux-60057513b",
     "github": "https://github.com/icarocharleaux-mm",

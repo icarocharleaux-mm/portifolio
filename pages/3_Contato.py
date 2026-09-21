@@ -1,4 +1,4 @@
-"""Pagina Contato: links diretos + formulario simples.
+"""Pagina Contato: canais diretos + formulario simples.
 
 IMPORTANTE SOBRE O FORMULARIO
 O Streamlit Community Cloud nao tem backend de e-mail. Este formulario
@@ -13,7 +13,7 @@ Se um dia voce quiser receber de verdade, as opcoes sao:
 Em qualquer uma delas, vale a LGPD: avise o visitante o que voce coleta,
 para que usa e por quanto tempo guarda.
 
-TODO (voce): os links vem de `data/perfil.json` -> chave `links`.
+TODO (voce): os canais vem de `data/perfil.json` -> chave `links`.
 """
 
 from __future__ import annotations
@@ -23,9 +23,11 @@ from urllib.parse import quote
 
 import streamlit as st
 
-from utils import aplicar_css, cabecalho_secao, carregar_perfil, rodape
+from utils import aplicar_css, botoes, cabecalho_secao, carregar_perfil, hero, rodape
 
-st.set_page_config(page_title="Contato | Portfolio", page_icon="✉️", layout="centered")
+st.set_page_config(
+    page_title="Contato | Icaro Charleaux", page_icon="✉️", layout="centered"
+)
 aplicar_css()
 
 perfil = carregar_perfil()
@@ -37,45 +39,51 @@ LIMITE_ASSUNTO = 120
 LIMITE_MENSAGEM = 2000
 PADRAO_EMAIL = re.compile(r"^[^@\s]+@[^@\s]+\.[A-Za-z]{2,}$")
 
-st.title("Contato")
-st.write("Aberto a conversas sobre automacao, dados e processos de logistica.")
+# --------------------------------------------------------------------------- #
+# Abertura
+# --------------------------------------------------------------------------- #
+hero(
+    kicker="Contato",
+    titulo="Vamos tirar esse processo",
+    titulo_destaque="do manual",
+    descricao=(
+        "Aberto a conversas sobre automação, dados e processos de logística. "
+        "Escolha o canal que preferir."
+    ),
+)
 
 # --------------------------------------------------------------------------- #
-# Links diretos
-# --------------------------------------------------------------------------- #
-cabecalho_secao("Onde me encontrar")
-
+# Canais diretos
+#
 # Ordem dos botoes na tela. Canal com valor vazio em data/perfil.json some
 # sozinho -- e so apagar a URL para tirar do ar, sem mexer no codigo.
+# --------------------------------------------------------------------------- #
 CANAIS = [
-    ("linkedin", "LinkedIn"),
-    ("whatsapp", "WhatsApp"),
-    ("github", "GitHub"),
-    ("site", "Site"),
+    ("whatsapp", "WhatsApp", "primario"),
+    ("linkedin", "LinkedIn", "secundario"),
+    ("github", "GitHub", "secundario"),
+    ("site", "Site", "secundario"),
 ]
 
-botoes = [(rotulo, links[chave]) for chave, rotulo in CANAIS if links.get(chave)]
+acoes = [(rotulo, links[chave], estilo) for chave, rotulo, estilo in CANAIS if links.get(chave)]
 
-# O e-mail vem por ultimo porque precisa do prefixo mailto:.
+# O e-mail vem por ultimo porque precisa do prefixo mailto:. O endereco nunca
+# aparece em texto na pagina -- so no destino do link.
 if links.get("email"):
-    botoes.append(("E-mail", f"mailto:{links['email']}"))
+    acoes.append(("E-mail", f"mailto:{links['email']}", "secundario"))
 
-if botoes:
-    colunas = st.columns(len(botoes), gap="medium")
-    for coluna, (rotulo, url) in zip(colunas, botoes):
-        with coluna:
-            st.link_button(rotulo, url)
+if acoes:
+    botoes(acoes)
 else:
     st.caption("Preencha `links` em data/perfil.json para exibir seus canais.")
-
-st.divider()
 
 # --------------------------------------------------------------------------- #
 # Formulario
 # --------------------------------------------------------------------------- #
 cabecalho_secao(
-    "Enviar uma mensagem",
-    "O formulario monta o e-mail para voce. Nada e gravado nesta pagina.",
+    "Mensagem",
+    "Me conte o gargalo",
+    "O formulário monta o e-mail para você. Nada é gravado nesta página.",
 )
 
 with st.form("formulario_contato", clear_on_submit=False):
@@ -84,22 +92,27 @@ with st.form("formulario_contato", clear_on_submit=False):
     assunto = st.text_input(
         "Assunto", max_chars=LIMITE_ASSUNTO, placeholder="Sobre o que voce quer falar"
     )
-    mensagem = st.text_area("Mensagem", max_chars=LIMITE_MENSAGEM, height=170)
+    mensagem = st.text_area(
+        "Mensagem",
+        max_chars=LIMITE_MENSAGEM,
+        height=170,
+        placeholder="Qual processo está travando? Quantas pessoas ele consome hoje?",
+    )
 
-    enviado = st.form_submit_button("Gerar mensagem")
+    enviado = st.form_submit_button("Gerar mensagem", type="primary")
 
 if enviado:
     # Validacao simples de entrada.
     erros: list[str] = []
     nome = nome.strip()
     email = email.strip()
-    assunto = assunto.strip() or "Contato pelo portfolio"
+    assunto = assunto.strip() or "Contato pelo portfólio"
     mensagem = mensagem.strip()
 
     if len(nome) < 2:
         erros.append("Informe o seu nome.")
     if not PADRAO_EMAIL.match(email):
-        erros.append("Informe um e-mail valido.")
+        erros.append("Informe um e-mail válido.")
     if len(mensagem) < 10:
         erros.append("Escreva uma mensagem com pelo menos 10 caracteres.")
 
@@ -115,7 +128,7 @@ if enviado:
     else:
         corpo = f"{mensagem}\n\n---\nEnviado por: {nome} <{email}>"
 
-        st.success("Mensagem pronta. Use o link abaixo ou copie o texto.", icon="✅")
+        st.success("Mensagem pronta. Use o botão abaixo ou copie o texto.", icon="✅")
 
         # `quote` escapa o conteudo para caber com seguranca em uma URL mailto.
         url_mailto = (
@@ -123,7 +136,7 @@ if enviado:
             f"?subject={quote(assunto)}"
             f"&body={quote(corpo)}"
         )
-        st.link_button("Abrir no meu cliente de e-mail", url_mailto)
+        botoes([("Abrir no meu cliente de e-mail", url_mailto, "primario")])
 
         # O endereco de destino NAO entra aqui de proposito: ele so existe no
         # href do botao acima. Imprimir "Para: <email>" na tela devolveria o
@@ -132,8 +145,8 @@ if enviado:
             st.code(f"Assunto: {assunto}\n\n{corpo}", language="text")
 
         st.caption(
-            "Esta pagina nao guarda o que voce digitou. O conteudo so sai daqui "
-            "quando voce mesmo envia pelo seu cliente de e-mail."
+            "Esta página não guarda o que você digitou. O conteúdo só sai daqui "
+            "quando você mesmo envia pelo seu cliente de e-mail."
         )
 
 rodape()

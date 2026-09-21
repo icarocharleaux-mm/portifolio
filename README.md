@@ -50,24 +50,25 @@ conta própria, por isso ele não está fixado em `.streamlit/config.toml`.)
 
 ```
 portfolio/
-├── app.py                     # Home: apresentação + cards de destaque
+├── app.py                     # Home: hero + "o que eu resolvo" + destaques + CTA
 ├── pages/
 │   ├── 1_Sobre.py             # bio, diferenciais, skills, stack
 │   ├── 2_Projetos.py          # projetos em expanders + mini-demo de gráfico
-│   └── 3_Contato.py           # links + formulário que monta um e-mail
-├── data/                      # TODO o conteúdo editável (fictício)
-│   ├── perfil.json            # nome, cargo, bio, links
+│   └── 3_Contato.py           # canais + formulário que monta um e-mail
+├── data/                      # TODO o conteúdo editável
+│   ├── perfil.json            # nome, cargo, bio, "o que eu resolvo", links
 │   ├── projetos.json          # lista de projetos
 │   ├── skills.json            # skills por categoria, ferramentas, idiomas
 │   └── sla_exemplo.csv        # dados fictícios usados na mini-demo
 ├── assets/
+│   ├── tema.css               # TODO o visual: cores, cards, animações
 │   └── avatar_placeholder.svg # troque pela sua foto
 ├── utils/
 │   ├── __init__.py            # reexporta os helpers
 │   ├── data_loader.py         # leitura cacheada e validada de data/
-│   └── styles.py              # CSS global, cards, tags, barras de nível
+│   └── styles.py              # componentes: hero, cards, tags, CTA, níveis
 ├── .streamlit/
-│   └── config.toml            # tema (paleta neutra profissional)
+│   └── config.toml            # tema dos componentes nativos do Streamlit
 ├── requirements.txt
 ├── .gitignore
 └── README.md
@@ -82,11 +83,23 @@ O código não precisa ser tocado — **tudo vive em `data/`**:
 | Quero mudar | Edite |
 |---|---|
 | Nome, cargo, resumo, bio, links | `data/perfil.json` |
+| Blocos de "o que eu resolvo" | `data/perfil.json` → chave `solucoes` |
 | Projetos (problema → solução → tecnologias → resultado) | `data/projetos.json` |
 | Skills, ferramentas, idiomas | `data/skills.json` |
 | Dados da mini-demo | `data/sla_exemplo.csv` |
 | Foto/avatar | coloque o arquivo em `assets/` e aponte `avatar` em `perfil.json` |
-| Cores do tema | `.streamlit/config.toml` **e** `PALETA` em `utils/styles.py` |
+| Cores, espaçamento, animações | `assets/tema.css` → variáveis de `:root` |
+
+### Trocando as cores
+
+A paleta aparece em **três lugares** e os três precisam andar juntos:
+
+1. `assets/tema.css` → bloco `:root` (o visual próprio: hero, cards, gradientes)
+2. `.streamlit/config.toml` → `[theme]` (componentes nativos: inputs, sidebar, botões)
+3. `utils/styles.py` → `PALETA` (usada pelas cores das séries do gráfico)
+
+A paleta atual é "dark tech": grafite `#0B0F17`, ciano `#22D3EE`, índigo `#6366F1`
+e violeta `#A78BFA` no gradiente.
 
 Campos de cada projeto em `projetos.json`:
 

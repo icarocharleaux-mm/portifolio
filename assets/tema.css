@@ -1,0 +1,312 @@
+/* ==========================================================================
+   Tema "dark tech" do portfolio
+   Carregado por utils/styles.py -> aplicar_css()
+
+   Para trocar a identidade visual inteira, mexa so nas variaveis de :root.
+   Tudo abaixo delas deriva dessas cores.
+   ========================================================================== */
+
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap");
+
+:root {
+  --bg: #0b0f17;          /* fundo da pagina */
+  --superficie: #131a26;  /* topo do gradiente dos cards */
+  --superficie-2: #182234;/* base do gradiente dos cards */
+  --borda: #22304a;
+  --acento: #22d3ee;      /* ciano  -- acao, destaque */
+  --acento-2: #6366f1;    /* indigo -- segundo tom do gradiente */
+  --acento-3: #a78bfa;    /* violeta -- fecho do gradiente */
+  --texto: #e6edf7;
+  --suave: #8fa3bf;       /* texto secundario */
+  --raio: 16px;
+  --sombra: 0 18px 40px -20px rgba(0, 0, 0, 0.85);
+}
+
+/* ---------- Base ---------- */
+
+html, body, .stApp, button, input, textarea, select {
+  font-family: "Inter", -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+
+/* Os icones do Streamlit sao ligaduras de uma fonte de simbolos: se a fonte
+   do texto vazar para eles, o nome da ligadura ("keyboard_arrow_down")
+   aparece como texto cru em cima do conteudo. Esta regra os protege. */
+[data-testid="stIconMaterial"],
+.material-icons,
+[class*="material-symbols"] {
+  font-family: "Material Symbols Rounded", "Material Symbols Outlined", "Material Icons" !important;
+}
+
+/* Dois halos de luz no topo dao profundidade ao fundo chapado. */
+.stApp {
+  background:
+    radial-gradient(900px 520px at 12% -12%, rgba(99, 102, 241, 0.20), transparent 62%),
+    radial-gradient(760px 420px at 88% -6%, rgba(34, 211, 238, 0.13), transparent 60%),
+    var(--bg);
+}
+
+.block-container { max-width: 1160px; padding-top: 1.2rem; padding-bottom: 3rem; }
+
+[data-testid="stHeader"] { background: transparent; }
+[data-testid="stDecoration"] { display: none; }
+
+[data-testid="stSidebar"] {
+  background: #0d131e;
+  border-right: 1px solid var(--borda);
+}
+
+h1, h2, h3, h4 { letter-spacing: -0.015em; }
+a { color: var(--acento); }
+
+/* ---------- Hero ---------- */
+
+.pf-hero { padding: 2.6rem 0 1.4rem; }
+
+.pf-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--acento);
+  background: rgba(34, 211, 238, 0.08);
+  border: 1px solid rgba(34, 211, 238, 0.28);
+  padding: 0.36rem 0.85rem;
+  border-radius: 999px;
+}
+
+.pf-hero h1 {
+  font-size: clamp(2.1rem, 5vw, 3.5rem);
+  line-height: 1.08;
+  font-weight: 800;
+  margin: 1.1rem 0 0.9rem;
+}
+
+/* Texto com preenchimento em gradiente. */
+.pf-grad {
+  background: linear-gradient(100deg, var(--acento), var(--acento-2) 58%, var(--acento-3));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.pf-hero .pf-lead {
+  font-size: 1.05rem;
+  line-height: 1.75;
+  color: var(--suave);
+  max-width: 62ch;
+  margin: 0;
+}
+
+.pf-local { color: var(--suave); font-size: 0.88rem; margin-top: 0.9rem; }
+
+/* ---------- Botoes ---------- */
+
+.pf-ctas { display: flex; flex-wrap: wrap; gap: 0.7rem; margin-top: 1.7rem; }
+
+.pf-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.76rem 1.4rem;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 0.94rem;
+  text-decoration: none !important;
+  transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+}
+
+.pf-btn-primario {
+  background: linear-gradient(100deg, var(--acento), var(--acento-2));
+  color: #08111c !important;
+  box-shadow: 0 12px 30px -12px rgba(34, 211, 238, 0.65);
+}
+.pf-btn-primario:hover { transform: translateY(-2px); box-shadow: 0 18px 38px -14px rgba(34, 211, 238, 0.8); }
+
+.pf-btn-secundario {
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--texto) !important;
+  border: 1px solid var(--borda);
+}
+.pf-btn-secundario:hover { transform: translateY(-2px); border-color: rgba(34, 211, 238, 0.55); }
+
+/* ---------- Cards ---------- */
+
+.pf-card {
+  position: relative;
+  background: linear-gradient(180deg, var(--superficie), var(--superficie-2));
+  border: 1px solid var(--borda);
+  border-radius: var(--raio);
+  padding: 1.4rem;
+  height: 100%;
+  overflow: hidden;
+  transition: transform 0.22s ease, border-color 0.22s ease, box-shadow 0.22s ease;
+}
+
+/* Fio de luz no topo do card, que acende no hover. */
+.pf-card::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--acento), var(--acento-2), var(--acento-3));
+  opacity: 0.45;
+  transition: opacity 0.22s ease;
+}
+
+.pf-card:hover { transform: translateY(-6px); border-color: rgba(34, 211, 238, 0.45); box-shadow: var(--sombra); }
+.pf-card:hover::before { opacity: 1; }
+
+.pf-card h4 { margin: 0 0 0.45rem; font-size: 1.02rem; line-height: 1.4; color: var(--texto); font-weight: 650; }
+.pf-card p { margin: 0; color: var(--suave); font-size: 0.9rem; line-height: 1.6; }
+
+.pf-icone {
+  display: inline-grid;
+  place-items: center;
+  width: 46px;
+  height: 46px;
+  border-radius: 12px;
+  background: rgba(34, 211, 238, 0.1);
+  border: 1px solid rgba(34, 211, 238, 0.25);
+  font-size: 1.35rem;
+  margin-bottom: 0.9rem;
+}
+
+.pf-meta {
+  display: inline-block;
+  margin-top: 0.9rem;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--acento);
+  font-weight: 700;
+}
+
+/* ---------- Tags ---------- */
+
+.pf-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0.3rem 0 0.2rem; }
+
+.pf-tag {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--borda);
+  color: var(--suave);
+  border-radius: 999px;
+  padding: 0.24rem 0.72rem;
+  font-size: 0.76rem;
+  white-space: nowrap;
+  transition: color 0.18s ease, border-color 0.18s ease;
+}
+.pf-tag:hover { color: var(--acento); border-color: rgba(34, 211, 238, 0.45); }
+
+/* ---------- Bloco rotulado (problema / solucao / aprendizado) ---------- */
+
+.pf-bloco { margin-bottom: 1.1rem; }
+.pf-bloco .pf-rotulo {
+  font-size: 0.71rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.13em;
+  color: var(--acento);
+  margin-bottom: 0.35rem;
+}
+.pf-bloco .pf-conteudo { color: var(--texto); line-height: 1.7; font-size: 0.94rem; opacity: 0.92; }
+
+/* ---------- Cabecalho de secao ---------- */
+
+.pf-secao { margin: 2.8rem 0 1.3rem; }
+.pf-secao .pf-kicker {
+  font-size: 0.72rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--acento);
+  font-weight: 800;
+}
+.pf-secao h3 { font-size: clamp(1.45rem, 3vw, 1.95rem); font-weight: 750; margin: 0.35rem 0 0.3rem; }
+.pf-secao p { margin: 0; color: var(--suave); font-size: 0.94rem; }
+
+/* ---------- Skills ---------- */
+
+.pf-skill { margin-bottom: 0.7rem; }
+.pf-skill-topo { display: flex; justify-content: space-between; font-size: 0.88rem; margin-bottom: 0.25rem; }
+.pf-skill-topo span:last-child { color: var(--suave); font-size: 0.78rem; }
+.pf-skill-trilho { background: rgba(255, 255, 255, 0.07); border-radius: 999px; height: 6px; overflow: hidden; }
+.pf-skill-preenchido { background: linear-gradient(90deg, var(--acento), var(--acento-2)); height: 100%; border-radius: 999px; }
+
+/* ---------- Faixa de CTA ---------- */
+
+.pf-cta-faixa {
+  margin-top: 3rem;
+  border-radius: 20px;
+  padding: 2.4rem 2rem;
+  text-align: center;
+  background:
+    radial-gradient(600px 200px at 50% 0%, rgba(34, 211, 238, 0.16), transparent 70%),
+    linear-gradient(120deg, rgba(99, 102, 241, 0.16), rgba(34, 211, 238, 0.07));
+  border: 1px solid var(--borda);
+}
+.pf-cta-faixa h3 { font-size: clamp(1.4rem, 3vw, 1.9rem); font-weight: 750; margin: 0 0 0.5rem; }
+.pf-cta-faixa p { color: var(--suave); margin: 0 auto 1.4rem; max-width: 56ch; line-height: 1.7; }
+.pf-cta-faixa .pf-ctas { justify-content: center; margin-top: 0; }
+
+/* ---------- Rodape ---------- */
+
+.pf-rodape {
+  margin-top: 2.6rem;
+  padding-top: 1.1rem;
+  border-top: 1px solid var(--borda);
+  color: var(--suave);
+  font-size: 0.8rem;
+  text-align: center;
+}
+
+/* ---------- Componentes nativos do Streamlit ---------- */
+
+[data-testid="stExpander"] details {
+  background: linear-gradient(180deg, var(--superficie), var(--superficie-2));
+  border: 1px solid var(--borda) !important;
+  border-radius: var(--raio) !important;
+  overflow: hidden;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  margin-bottom: 0.7rem;
+}
+[data-testid="stExpander"] details:hover { border-color: rgba(34, 211, 238, 0.45) !important; box-shadow: var(--sombra); }
+[data-testid="stExpander"] summary { padding: 1rem 1.2rem !important; font-weight: 650; font-size: 1rem; }
+[data-testid="stExpander"] summary:hover { color: var(--acento); }
+
+[data-testid="stMetricValue"] { color: var(--acento); }
+
+div[data-testid="stLinkButton"] a {
+  border-radius: 999px !important;
+  border: 1px solid var(--borda) !important;
+  transition: border-color 0.18s ease, transform 0.18s ease;
+}
+div[data-testid="stLinkButton"] a:hover { border-color: var(--acento) !important; transform: translateY(-1px); }
+
+/* ---------- Animacao de entrada ---------- */
+
+@keyframes pfSobe {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: none; }
+}
+
+.pf-anima { animation: pfSobe 0.55s cubic-bezier(0.2, 0.7, 0.3, 1) both; }
+.pf-d1 { animation-delay: 0.05s; }
+.pf-d2 { animation-delay: 0.13s; }
+.pf-d3 { animation-delay: 0.21s; }
+.pf-d4 { animation-delay: 0.29s; }
+
+/* Respeita quem pediu menos movimento no sistema operacional. */
+@media (prefers-reduced-motion: reduce) {
+  .pf-anima { animation: none; }
+  .pf-card:hover, .pf-btn:hover { transform: none; }
+}
+
+/* ---------- Telas pequenas ---------- */
+
+@media (max-width: 640px) {
+  .pf-hero { padding-top: 1.4rem; }
+  .pf-ctas .pf-btn { flex: 1 1 100%; justify-content: center; }
+  .pf-cta-faixa { padding: 1.8rem 1.2rem; }
+}
