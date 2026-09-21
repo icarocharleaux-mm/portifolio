@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="100%" role="img" aria-label="Avatar placeholder">
+  <defs>
+    <clipPath id="pf-avatar-recorte">
+      <circle cx="100" cy="100" r="96" />
+    </clipPath>
+  </defs>
+
+  <!-- Fundo -->
+  <circle cx="100" cy="100" r="96" fill="#E8EDF3" />
+
+  <!-- Silhueta generica: cabeca + ombros -->
+  <g clip-path="url(#pf-avatar-recorte)" fill="#3D5A80" opacity="0.85">
+    <circle cx="100" cy="82" r="34" />
+    <path d="M100 124c-33 0-60 22-60 49v31h120v-31c0-27-27-49-60-49z" />
+  </g>
+
+  <!-- Anel externo -->
+  <circle cx="100" cy="100" r="94" fill="none" stroke="#3D5A80" stroke-width="3" opacity="0.6" />
+</svg>

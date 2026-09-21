@@ -1,0 +1,60 @@
+# ---------- Segredos (NUNCA versionar) ----------
+.streamlit/secrets.toml
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+credentials.json
+token.json
+
+# ---------- Ambiente virtual ----------
+.venv/
+venv/
+env/
+ENV/
+.python-version
+
+# ---------- Python ----------
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+build/
+dist/
+*.egg-info/
+.eggs/
+.installed.cfg
+
+# ---------- Testes e qualidade ----------
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+.tox/
+
+# ---------- Notebooks ----------
+.ipynb_checkpoints/
+
+# ---------- Editores e SO ----------
+.vscode/
+.idea/
+*.swp
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ---------- Dados locais que nao devem ir para o repo publico ----------
+# A pasta data/ versionada contem SO dados ficticios de exemplo.
+# Qualquer base real fica fora do Git.
+data/privado/
+data/real/
+*.xlsx
+*.xls
+*.db
+*.sqlite3
+*.log
+
+# ---------- Config local do Claude Code ----------
+.claude/settings.local.json

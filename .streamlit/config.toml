@@ -1,0 +1,23 @@
+# Tema do portfolio -- paleta neutra profissional ("azul ardosia sobre cinza claro")
+#
+#   #3D5A80  azul ardosia   -> acentos, botoes, links
+#   #1F2933  quase preto    -> texto principal (mais suave que preto puro)
+#   #F4F6F8  cinza claro    -> superficies (sidebar, inputs, cards)
+#   #FFFFFF  branco         -> fundo
+#
+# Se mudar as cores aqui, atualize tambem o dicionario PALETA em utils/styles.py.
+
+[theme]
+base = "light"
+primaryColor = "#3D5A80"
+backgroundColor = "#FFFFFF"
+secondaryBackgroundColor = "#F4F6F8"
+textColor = "#1F2933"
+font = "sans serif"
+
+[browser]
+# Nao enviar estatisticas de uso.
+gatherUsageStats = false
+
+# ATENCAO: nunca versione .streamlit/secrets.toml -- ele ja esta no .gitignore.
+# No Streamlit Community Cloud, segredos vao em Settings > Secrets, nao no repo.

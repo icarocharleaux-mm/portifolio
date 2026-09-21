@@ -1,0 +1,37 @@
+{
+  "categorias": [
+    {
+      "nome": "Automação & Low-code",
+      "ferramentas": [
+        { "nome": "Power Apps", "nivel": "" },
+        { "nome": "Power Automate", "nivel": "" },
+        { "nome": "Microsoft Forms", "nivel": "" },
+        { "nome": "SharePoint", "nivel": "" }
+      ]
+    },
+    {
+      "nome": "Google Workspace / Cloud",
+      "ferramentas": [
+        { "nome": "Google Apps Script", "nivel": "" },
+        { "nome": "Google Cloud APIs (Geocoding)", "nivel": "" }
+      ]
+    },
+    {
+      "nome": "Linguagens",
+      "ferramentas": [
+        { "nome": "JavaScript", "nivel": "" },
+        { "nome": "Python", "nivel": "" }
+      ]
+    },
+    {
+      "nome": "E-mail & Produtividade",
+      "ferramentas": [
+        { "nome": "Outlook (Rules engine)", "nivel": "" }
+      ]
+    }
+  ],
+  "idiomas": [
+    { "nome": "Português", "nivel": "Nativo" }
+  ],
+  "_comentario": "Preenchi só as ferramentas que você já mencionou usar nos projetos. Deixei 'nivel' em branco de propósito — não quis inventar seu grau de proficiência; preencha com algo como 'Básico', 'Intermediário' ou 'Avançado'. Também não sei se o schema bate com o que pages/1_Sobre.py e utils/ esperam, já que não vi esses arquivos — me manda eles se quiser que eu ajuste o formato exato."
+}

@@ -1,0 +1,78 @@
+[
+  {
+    "titulo": "Otimização de Geocoding para Roteirização de Entregas",
+    "resumo": "Eliminação de gargalo de cota de API que travava o cálculo de rotas em dias de alto volume.",
+    "categoria": "Automação de Processos",
+    "periodo": "2026",
+    "icone": "🗺️",
+    "destaque": true,
+    "problema": "Um script de automação responsável por calcular rotas de entrega para uma rede com dezenas de unidades regionais esbarrava recorrentemente em limites de cota da API de geocodificação gratuita, travando o processamento em dias de alto volume.",
+    "solucao": "Migração para uma chave de API de geocoding paga (billing-based), com CEP como camada de fallback e checagem de plausibilidade para reduzir chamadas desnecessárias e validar resultados inconsistentes.",
+    "aprendizado": "Cota gratuita é ótima para prototipar, mas processos operacionais críticos precisam de um plano de escala definido desde o início.",
+    "tecnologias": ["Google Apps Script", "Google Cloud Geocoding API", "JavaScript"],
+    "resultado": [
+      "Eliminação do gargalo de cota que travava o processamento",
+      "Processo de roteirização escalável para o volume diário de toda a rede"
+    ],
+    "repositorio": "",
+    "demo": "",
+    "_comentario": "Ajuste 'periodo' para o mês/ano real do projeto."
+  },
+  {
+    "titulo": "Automação de Checklist Digital com Evidências Fotográficas",
+    "resumo": "Persistência confiável de fotos de auditoria em app low-code, contornando limitação do tipo de dado nativo.",
+    "categoria": "Low-code / Power Platform",
+    "periodo": "2026",
+    "icone": "📋",
+    "destaque": true,
+    "problema": "Um aplicativo interno de auditoria precisava anexar fotos como evidência em cada item de checklist, mas as abordagens nativas de anexo não eram compatíveis com o tipo de dado retornado pelo componente de câmera.",
+    "solucao": "Arquitetura via Biblioteca de Documentos + fluxo de automação: a mídia capturada no app é salva em uma biblioteca do SharePoint e o link público é gravado na linha correspondente da lista de respostas.",
+    "aprendizado": "Quando a abordagem 'óbvia' de uma plataforma low-code não funciona, vale procurar um caminho indireto (arquivo + link) antes de forçar a solução nativa.",
+    "tecnologias": ["Power Apps", "Power Automate", "SharePoint"],
+    "resultado": [
+      "Persistência confiável de evidências fotográficas em processos de auditoria",
+      "Solução sem dependência de tipos de coluna incompatíveis com o fluxo de captura"
+    ],
+    "repositorio": "",
+    "demo": "",
+    "_comentario": "Ajuste 'periodo' para o mês/ano real do projeto."
+  },
+  {
+    "titulo": "Modelo Padronizado de Intake e Priorização para Projetos de Automação",
+    "resumo": "Framework de captação e priorização de demandas por ROI para uma área de automação recém-criada.",
+    "categoria": "Gestão de Processos",
+    "periodo": "2026",
+    "icone": "📊",
+    "destaque": true,
+    "problema": "Uma área de Automação e Inovação recém-criada não tinha processo formal para captar, avaliar e priorizar demandas — cada solicitação chegava de forma ad-hoc, sem critério objetivo de ROI.",
+    "solucao": "Desenho e apresentação executiva de um modelo de intake estruturado em 4 blocos (identificação, dor operacional/ROI, fluxo do processo e evidência em vídeo), com framework de priorização por ROI.",
+    "aprendizado": "Automação de processo também é produto: precisa de proposta de valor clara e apresentação para ganhar adoção, não só código.",
+    "tecnologias": ["Microsoft Forms", "Power Automate", "Apresentação executiva"],
+    "resultado": [
+      "Processo replicável de triagem de demandas",
+      "Critério objetivo de priorização por impacto e esforço, substituindo ordem de chegada"
+    ],
+    "repositorio": "",
+    "demo": "",
+    "_comentario": "Ajuste 'periodo' para o mês/ano real do projeto."
+  },
+  {
+    "titulo": "Reorganização de Caixa de E-mail com Regras Automatizadas",
+    "resumo": "Triagem automática de e-mails operacionais usando o motor nativo de regras do Outlook.",
+    "categoria": "Automação de E-mail",
+    "periodo": "2026",
+    "icone": "📧",
+    "destaque": false,
+    "problema": "A caixa de entrada recebia grande volume de e-mails operacionais sem organização, exigindo triagem manual diária.",
+    "solucao": "Mapeamento de regras de pasta usando o motor nativo de Regras do Outlook, após identificar que movimentações em lote não eram viáveis via chamadas de API.",
+    "aprendizado": "Nem toda automação precisa de código customizado — às vezes a ferramenta nativa da própria plataforma já resolve com mais estabilidade.",
+    "tecnologias": ["Outlook", "Regras nativas (Rules engine)"],
+    "resultado": [
+      "Organização automática de e-mails por regra",
+      "Redução da triagem manual diária"
+    ],
+    "repositorio": "",
+    "demo": "",
+    "_comentario": "Ajuste 'periodo' para o mês/ano real do projeto."
+  }
+]
