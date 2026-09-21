@@ -24,9 +24,9 @@ st.set_page_config(
     page_title="Icaro Charleaux | Automação e Inovação em Logística",
     page_icon="⚡",
     layout="wide",
-    # "auto" abre a barra lateral no desktop e a mantem fechada no celular.
-    # Com "expanded", quem chega pelo celular cai numa tela coberta pelo menu,
-    # com o hero escondido atras dele.
+    # A navegacao e por abas no topo (ver st.navigation abaixo), entao nao ha
+    # barra lateral. "auto" fica como padrao seguro caso alguma pagina passe
+    # a usar a sidebar para outra coisa.
     initial_sidebar_state="auto",
 )
 
@@ -51,4 +51,7 @@ PAGINAS = [
     st.Page("pages/3_Contato.py", title="Contato", icon="✉️", url_path="Contato"),
 ]
 
-st.navigation(PAGINAS).run()
+# `position="top"` troca a barra lateral por abas no topo da area principal.
+# Some com a sidebar por completo -- o que tambem resolve, de lambuja, o
+# menu cobrindo o conteudo no celular.
+st.navigation(PAGINAS, position="top").run()

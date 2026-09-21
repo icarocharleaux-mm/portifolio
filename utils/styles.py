@@ -354,7 +354,14 @@ def avatar(caminho_relativo: str, largura: int = 190) -> None:
 
     if caminho.suffix.lower() == ".svg":
         svg = caminho.read_text(encoding="utf-8")
-        _render(f'<div style="width:{largura}px;max-width:100%">{svg}</div>')
+        # Aqui, e SO aqui, usamos st.markdown em vez de _render: o `st.html`
+        # higieniza a marcacao e descarta a tag <svg> inteira, deixando um
+        # container vazio. Como o avatar nao tem link dentro, a reescrita de
+        # <a> que motivou o _render nao faz diferenca neste caso.
+        st.markdown(
+            f'<div style="width:{largura}px;max-width:100%">{svg}</div>',
+            unsafe_allow_html=True,
+        )
     else:
         st.image(str(caminho), width=largura)
 
