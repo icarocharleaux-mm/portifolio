@@ -1,104 +1,236 @@
 {
   "_comentario": "Cada item desta lista aparece em pelo menos um projeto de projetos.json ou no codigo dos projetos de origem -- nao ha nada aqui so para engrossar a lista. Se remover um projeto, revise se alguma skill ficou sem lastro.",
-
   "_comentario_nivel": "O campo 'nivel' esta vazio de proposito: grau de proficiencia e autoavaliacao sua, eu nao tenho como medir. Vazio = so o nome, como etiqueta. Preencha com texto ('Avancado', 'Intermediario') ou com numero de 0 a 100, que vira barra. Os dois formatos convivem.",
-
   "categorias": [
     {
       "nome": "Linguagens",
       "icone": "🧠",
       "ferramentas": [
-        { "nome": "Python", "nivel": "" },
-        { "nome": "JavaScript", "nivel": "" },
-        { "nome": "TypeScript", "nivel": "" },
-        { "nome": "SQL", "nivel": "" },
-        { "nome": "Google Apps Script", "nivel": "" }
+        {
+          "nome": "Python",
+          "nivel": ""
+        },
+        {
+          "nome": "JavaScript",
+          "nivel": ""
+        },
+        {
+          "nome": "TypeScript",
+          "nivel": ""
+        },
+        {
+          "nome": "SQL",
+          "nivel": ""
+        },
+        {
+          "nome": "Google Apps Script",
+          "nivel": ""
+        }
       ]
     },
     {
       "nome": "Dados e análise",
       "icone": "📊",
       "ferramentas": [
-        { "nome": "pandas", "nivel": "" },
-        { "nome": "Plotly", "nivel": "" },
-        { "nome": "Altair", "nivel": "" },
-        { "nome": "openpyxl", "nivel": "" },
-        { "nome": "Indicadores operacionais (SLA, curva ABC)", "nivel": "" }
+        {
+          "nome": "pandas",
+          "nivel": ""
+        },
+        {
+          "nome": "Plotly",
+          "nivel": ""
+        },
+        {
+          "nome": "Altair",
+          "nivel": ""
+        },
+        {
+          "nome": "openpyxl",
+          "nivel": ""
+        },
+        {
+          "nome": "Indicadores operacionais (SLA, curva ABC)",
+          "nivel": ""
+        }
       ]
     },
     {
       "nome": "Aplicações e interfaces",
       "icone": "🖥️",
       "ferramentas": [
-        { "nome": "Streamlit", "nivel": "" },
-        { "nome": "NestJS", "nivel": "" },
-        { "nome": "Next.js / React", "nivel": "" },
-        { "nome": "Node.js / Express", "nivel": "" },
-        { "nome": "PWA (app web instalável)", "nivel": "" },
-        { "nome": "Power Apps", "nivel": "" }
+        {
+          "nome": "Streamlit",
+          "nivel": ""
+        },
+        {
+          "nome": "NestJS",
+          "nivel": ""
+        },
+        {
+          "nome": "Next.js / React",
+          "nivel": ""
+        },
+        {
+          "nome": "Node.js / Express",
+          "nivel": ""
+        },
+        {
+          "nome": "PWA (app web instalável)",
+          "nivel": ""
+        },
+        {
+          "nome": "Power Apps",
+          "nivel": ""
+        }
       ]
     },
     {
       "nome": "Dados em repouso",
       "icone": "🗄️",
       "ferramentas": [
-        { "nome": "PostgreSQL", "nivel": "" },
-        { "nome": "SQLite", "nivel": "" },
-        { "nome": "Prisma", "nivel": "" },
-        { "nome": "SQLAlchemy", "nivel": "" },
-        { "nome": "Redis", "nivel": "" }
+        {
+          "nome": "PostgreSQL",
+          "nivel": ""
+        },
+        {
+          "nome": "SQLite",
+          "nivel": ""
+        },
+        {
+          "nome": "Prisma",
+          "nivel": ""
+        },
+        {
+          "nome": "SQLAlchemy",
+          "nivel": ""
+        },
+        {
+          "nome": "Redis",
+          "nivel": ""
+        }
       ]
     },
     {
       "nome": "Automação e integração",
       "icone": "⚙️",
       "ferramentas": [
-        { "nome": "Playwright (automação de navegador)", "nivel": "" },
-        { "nome": "Power Automate", "nivel": "" },
-        { "nome": "SharePoint", "nivel": "" },
-        { "nome": "Microsoft Forms", "nivel": "" },
-        { "nome": "APIs REST e webhook", "nivel": "" },
-        { "nome": "E-mail corporativo (SMTP e API)", "nivel": "" },
-        { "nome": "Geocoding e cálculo de rota", "nivel": "" }
+        {
+          "nome": "Playwright (automação de navegador)",
+          "nivel": ""
+        },
+        {
+          "nome": "Power Automate",
+          "nivel": ""
+        },
+        {
+          "nome": "SharePoint",
+          "nivel": ""
+        },
+        {
+          "nome": "Microsoft Forms",
+          "nivel": ""
+        },
+        {
+          "nome": "APIs REST e webhook",
+          "nivel": ""
+        },
+        {
+          "nome": "E-mail corporativo (SMTP e API)",
+          "nivel": ""
+        },
+        {
+          "nome": "Geocoding e cálculo de rota",
+          "nivel": ""
+        }
       ]
     },
     {
       "nome": "Infraestrutura e entrega",
       "icone": "🐳",
       "ferramentas": [
-        { "nome": "Docker e Docker Compose", "nivel": "" },
-        { "nome": "Git e GitHub", "nivel": "" },
-        { "nome": "Streamlit Community Cloud", "nivel": "" },
-        { "nome": "Caddy (proxy e HTTPS)", "nivel": "" },
-        { "nome": "Scripts de operação (.bat, PowerShell)", "nivel": "" }
+        {
+          "nome": "Docker e Docker Compose",
+          "nivel": ""
+        },
+        {
+          "nome": "Git e GitHub",
+          "nivel": ""
+        },
+        {
+          "nome": "Streamlit Community Cloud",
+          "nivel": ""
+        },
+        {
+          "nome": "Caddy (proxy e HTTPS)",
+          "nivel": ""
+        },
+        {
+          "nome": "Scripts de operação (.bat, PowerShell)",
+          "nivel": ""
+        }
       ]
     },
     {
       "nome": "Segurança e conformidade",
       "icone": "🔐",
       "ferramentas": [
-        { "nome": "Criptografia em repouso (AES-256)", "nivel": "" },
-        { "nome": "Windows DPAPI", "nivel": "" },
-        { "nome": "bcrypt e política de senha", "nivel": "" },
-        { "nome": "JWT e acesso por papel", "nivel": "" },
-        { "nome": "Gestão de segredos (.env, secrets)", "nivel": "" },
-        { "nome": "Minimização de PII e LGPD", "nivel": "" },
-        { "nome": "Trilha de auditoria", "nivel": "" }
+        {
+          "nome": "Criptografia em repouso (AES-256)",
+          "nivel": ""
+        },
+        {
+          "nome": "Windows DPAPI",
+          "nivel": ""
+        },
+        {
+          "nome": "bcrypt e política de senha",
+          "nivel": ""
+        },
+        {
+          "nome": "JWT e acesso por papel",
+          "nivel": ""
+        },
+        {
+          "nome": "Gestão de segredos (.env, secrets)",
+          "nivel": ""
+        },
+        {
+          "nome": "Minimização de PII e LGPD",
+          "nivel": ""
+        },
+        {
+          "nome": "Trilha de auditoria",
+          "nivel": ""
+        }
       ]
     },
     {
       "nome": "Operação de campo e documentação",
       "icone": "📷",
       "ferramentas": [
-        { "nome": "Código de barras no navegador", "nivel": "" },
-        { "nome": "Captura de mídia como evidência", "nivel": "" },
-        { "nome": "Geração de documento (python-docx)", "nivel": "" },
-        { "nome": "Diagramação automática (Graphviz)", "nivel": "" },
-        { "nome": "Mapeamento de processo", "nivel": "" }
+        {
+          "nome": "Código de barras no navegador",
+          "nivel": ""
+        },
+        {
+          "nome": "Captura de mídia como evidência",
+          "nivel": ""
+        },
+        {
+          "nome": "Geração de documento (python-docx)",
+          "nivel": ""
+        },
+        {
+          "nome": "Diagramação automática (Graphviz)",
+          "nivel": ""
+        },
+        {
+          "nome": "Mapeamento de processo",
+          "nivel": ""
+        }
       ]
     }
   ],
-
   "_comentario_ferramentas": "Ferramentas de trabalho que nao sao tecnologia de entrega. Mantida curta de proposito.",
   "ferramentas": [
     "VS Code",
@@ -106,9 +238,5 @@
     "Docker Desktop",
     "Excel / Google Sheets",
     "ngrok e mkcert (HTTPS em campo)"
-  ],
-
-  "idiomas": [
-    { "nome": "Português", "nivel": "Nativo" }
   ]
 }

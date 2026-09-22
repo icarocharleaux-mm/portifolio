@@ -61,35 +61,45 @@ hero(
 # --------------------------------------------------------------------------- #
 # Filtro por categoria
 # --------------------------------------------------------------------------- #
+# `required=True` e obrigatorio: em selection_mode="single" sem ele, clicar na
+# pilula ja ativa a desmarca, o widget devolve None e o filtro quebra.
 categorias = sorted({p.get("categoria", "Outros") for p in projetos})
-selecionadas = st.multiselect(
-    "Filtrar por categoria",
-    options=categorias,
-    default=categorias,
-    help="Desmarque para esconder categorias.",
+escolhida = st.pills(
+    "Filtrar por tipo de trabalho",
+    options=["Todos"] + categorias,
+    selection_mode="single",
+    default="Todos",
+    required=True,
 )
 
-visiveis = [p for p in projetos if p.get("categoria", "Outros") in selecionadas]
-
-if not visiveis:
-    st.info("Nenhum projeto para o filtro selecionado.")
+visiveis = (
+    projetos
+    if escolhida == "Todos"
+    else [p for p in projetos if p.get("categoria", "Outros") == escolhida]
+)
 
 # --------------------------------------------------------------------------- #
 # Lista de projetos
 # --------------------------------------------------------------------------- #
-for indice, projeto in enumerate(visiveis):
-    cabecalho = f"{projeto.get('icone', '')} {projeto['titulo']}".strip()
+# Titulo, metadados e resumo ficam FORA do expander. Antes o cabecalho era so
+# icone + titulo, e o campo `resumo` -- uma frase pronta em cada projeto -- nao
+# era renderizado em lugar nenhum desta pagina: o visitante via nove rotulos
+# mudos e precisava abrir cada um para saber se interessava.
+for projeto in visiveis:
+    st.markdown(f"##### {projeto.get('icone', '')} {projeto['titulo']}".strip())
 
-    # O primeiro vem aberto; os demais, fechados.
-    with st.expander(cabecalho, expanded=(indice == 0)):
-        meta = " · ".join(
-            filtro
-            for filtro in (projeto.get("categoria"), projeto.get("periodo"))
-            if filtro
-        )
-        if meta:
-            st.caption(meta)
+    meta = " · ".join(
+        filtro
+        for filtro in (projeto.get("categoria"), projeto.get("periodo"))
+        if filtro
+    )
+    if meta:
+        st.caption(meta)
 
+    if projeto.get("resumo"):
+        st.write(projeto["resumo"])
+
+    with st.expander("Problema, solução e resultado"):
         coluna_texto, coluna_lateral = st.columns([2, 1], gap="large")
 
         with coluna_texto:

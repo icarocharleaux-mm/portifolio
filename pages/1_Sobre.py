@@ -1,7 +1,7 @@
 """Pagina Sobre: bio, diferenciais, skills tecnicas e stack.
 
 TODO (voce): o conteudo vem de `data/perfil.json` (bio, diferenciais) e
-`data/skills.json` (categorias, ferramentas, idiomas).
+`data/skills.json` (categorias e ferramentas).
 
 Sobre o schema de skills.json: a pagina aceita duas formas de escrever uma
 categoria, para voce nao ficar preso a um formato so --
@@ -120,35 +120,24 @@ if categorias:
             st.write("")  # respiro entre categorias
 
 # --------------------------------------------------------------------------- #
-# Ferramentas e idiomas (cada bloco so aparece se houver conteudo)
+# Ferramentas do dia a dia (some se a lista estiver vazia)
 # --------------------------------------------------------------------------- #
 ferramentas = skills.get("ferramentas", [])
-idiomas = skills.get("idiomas", [])
 
-if ferramentas or idiomas:
-    coluna_ferramentas, coluna_idiomas = st.columns([2, 1], gap="large")
-
-    with coluna_ferramentas:
-        if ferramentas:
-            rotulo("Ferramentas do dia a dia")
-            lista_de_tags(ferramentas)
-
-    with coluna_idiomas:
-        if idiomas:
-            rotulo("Idiomas")
-            for idioma in idiomas:
-                st.markdown(f"**{idioma['nome']}** — {idioma.get('nivel', '')}")
+if ferramentas:
+    rotulo("Ferramentas do dia a dia")
+    lista_de_tags(ferramentas)
 
 # --------------------------------------------------------------------------- #
 # Fechamento
 # --------------------------------------------------------------------------- #
 faixa_cta(
-    "Quer ver isso aplicado?",
-    "Os projetos mostram o caminho completo: qual era o gargalo, o que foi construído "
-    "e o que mudou na operação depois.",
+    "Já deu para ver como eu trabalho?",
+    "Se a sua operação se parece com os casos daqui, o próximo passo é uma conversa: "
+    "você descreve o gargalo, eu digo se dá para automatizar e o que seria preciso.",
     [
-        ("Ver projetos", ROTAS["projetos"], "primario"),
-        ("O que eu entrego", ROTAS["servicos"], "secundario"),
+        ("Falar comigo", ROTAS["contato"], "primario"),
+        ("Ver os casos", ROTAS["projetos"], "secundario"),
     ],
 )
 
