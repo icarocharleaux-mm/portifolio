@@ -60,11 +60,6 @@ html, body, .stApp, button, input, textarea, select {
 [data-testid="stHeader"] { background: transparent; }
 [data-testid="stDecoration"] { display: none; }
 
-[data-testid="stSidebar"] {
-  background: #0d131e;
-  border-right: 1px solid var(--borda);
-}
-
 /* ---------- Navegacao por abas no topo (st.navigation position="top") ----- */
 
 [data-testid="stHeader"] {
@@ -217,6 +212,19 @@ a { color: var(--acento); }
   transition: opacity 0.22s ease;
 }
 
+/* `height: 100%` no card so vale se a cadeia de contedores do Streamlit
+   tambem esticar. Sem isto, cards lado a lado terminam em alturas diferentes
+   (medido: 569 / 546 / 524 na mesma linha) e a base da grade fica irregular.
+   O `:has()` restringe a regra aos contedores que realmente embrulham um
+   card -- aplicar em todo stElementContainer esticaria cada elemento de
+   qualquer coluna. Navegador sem `:has()` ignora e volta ao comportamento
+   anterior, sem quebrar nada. */
+[data-testid="stColumn"] > [data-testid="stVerticalBlock"]:has(.pf-card, .pf-coluna),
+[data-testid="stElementContainer"]:has(> [data-testid="stHtml"] > :is(.pf-card, .pf-coluna)),
+[data-testid="stHtml"]:has(> :is(.pf-card, .pf-coluna)) {
+  height: 100%;
+}
+
 .pf-card:hover { transform: translateY(-6px); border-color: rgba(34, 211, 238, 0.45); box-shadow: var(--sombra); }
 .pf-card:hover::before { opacity: 1; }
 
@@ -263,7 +271,9 @@ a { color: var(--acento); }
   line-height: 1.5;
 }
 .pf-card ul.pf-entregaveis li::before {
-  content: "→";
+  /* O "" depois da barra e o texto alternativo: some para o leitor de tela,
+     que ja anuncia o item como item de lista. */
+  content: "→" / "";
   position: absolute;
   left: 0;
   color: var(--acento);
@@ -523,8 +533,6 @@ a { color: var(--acento); }
 [data-testid="stExpander"] details:hover { border-color: rgba(34, 211, 238, 0.45) !important; box-shadow: var(--sombra); }
 [data-testid="stExpander"] summary { padding: 1rem 1.2rem !important; font-weight: 650; font-size: 1rem; }
 [data-testid="stExpander"] summary:hover { color: var(--acento); }
-
-[data-testid="stMetricValue"] { color: var(--acento); }
 
 div[data-testid="stLinkButton"] a {
   border-radius: 999px !important;

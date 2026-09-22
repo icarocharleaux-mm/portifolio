@@ -130,12 +130,12 @@ if ferramentas or idiomas:
 
     with coluna_ferramentas:
         if ferramentas:
-            cabecalho_secao("", "Ferramentas do dia a dia")
+            rotulo("Ferramentas do dia a dia")
             lista_de_tags(ferramentas)
 
     with coluna_idiomas:
         if idiomas:
-            cabecalho_secao("", "Idiomas")
+            rotulo("Idiomas")
             for idioma in idiomas:
                 st.markdown(f"**{idioma['nome']}** — {idioma.get('nivel', '')}")
 

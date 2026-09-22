@@ -55,6 +55,29 @@ def aplicar_css() -> None:
         return
 
     st.markdown(f"<style>{caminho.read_text(encoding='utf-8')}</style>", unsafe_allow_html=True)
+    _definir_idioma()
+
+
+def _definir_idioma(codigo: str = "pt-BR") -> None:
+    """Corrige o idioma declarado do documento.
+
+    O Streamlit serve a pagina com <html lang="en"> e nao expoe nenhuma opcao
+    para mudar isso. Com o conteudo inteiro em portugues, um leitor de tela
+    aplica fonetica inglesa e o texto fica incompreensivel -- e uma falha de
+    WCAG 3.1.1, nivel A.
+
+    Nao da para resolver por CSS nem por `st.html`, que descarta <script>.
+    `components.html` roda em um iframe de mesma origem, entao alcanca o
+    documento pai. E um contorno, nao uma solucao: se um dia o Streamlit
+    expuser `lang` em `st.set_page_config`, troque por aquilo.
+    """
+    import streamlit.components.v1 as components
+
+    components.html(
+        f"<script>window.parent.document.documentElement.lang = '{codigo}';</script>",
+        height=0,
+        width=0,
+    )
 
 
 # --------------------------------------------------------------------------- #
@@ -146,7 +169,13 @@ def hero(
         partes.append(f'<p class="pf-lead">{escape(descricao)}</p>')
 
     if localizacao:
-        partes.append(f'<div class="pf-local">\U0001f4cd {escape(localizacao)}</div>')
+        # O pino e decorativo: sem aria-hidden o leitor de tela anuncia
+        # "round pushpin Brasil" antes da informacao util.
+        partes.append(
+            '<div class="pf-local">'
+            f'<span aria-hidden="true">\U0001f4cd</span> {escape(localizacao)}'
+            "</div>"
+        )
 
     if acoes:
         partes.append(_html_botoes(acoes))
@@ -197,7 +226,7 @@ def _card(icone: str, titulo: str, texto: str, rodape_: str, atraso: int) -> Non
     partes = [f'<div class="{classes}">']
 
     if icone:
-        partes.append(f'<span class="pf-icone">{escape(icone)}</span>')
+        partes.append(f'<span class="pf-icone" aria-hidden="true">{escape(icone)}</span>')
 
     partes.append(f"<h4>{escape(titulo)}</h4>")
     partes.append(f"<p>{escape(texto)}</p>")
@@ -222,7 +251,7 @@ def card_servico(
     partes = [f'<div class="{classes}">']
 
     if icone:
-        partes.append(f'<span class="pf-icone">{escape(icone)}</span>')
+        partes.append(f'<span class="pf-icone" aria-hidden="true">{escape(icone)}</span>')
 
     partes.append(f"<h4>{escape(titulo)}</h4>")
     partes.append(f"<p>{escape(texto)}</p>")
